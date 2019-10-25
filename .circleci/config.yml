@@ -17,7 +17,8 @@ jobs:
     working_directory: ~/hetic-challenge/client
 
     steps:
-      - checkout
+      - checkout:
+          path: ~/hetic-challenge
 
       # Download and cache dependencies
       - restore_cache:
@@ -32,7 +33,5 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-  test_client:
-      - working_directory: ~/hetic-challenge/client
       # run tests!
       - run: yarn test
