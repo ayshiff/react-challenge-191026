@@ -1,4 +1,4 @@
-# HETIC - Challenge
+### HETIC - Challenge  [![CircleCI](https://circleci.com/gh/ayshiff/hetic-challenge.svg?style=svg)](https://circleci.com/gh/ayshiff/hetic-challenge)
 
 Liste des membres du groupe:
 
