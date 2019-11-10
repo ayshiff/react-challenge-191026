@@ -1,40 +1,33 @@
-import { ajax } from 'rxjs/ajax';
-import 'rxjs/add/observable/dom/ajax';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/startWith';
+import { ajax } from "rxjs/ajax";
+import { map, mergeMap } from "rxjs/operators";
 
 import {
-    AAddStudent, AEditStudnet, ADeleteStudent, StudentActions
-} from '../actions/student.action';
-
+  AAddStudent,
+  AEditStudnet,
+  ADeleteStudent,
+  StudentActions,
+  AGetStudentsSucess,
+  AAddStudentSucess
+} from "../actions/student.action";
+import { ofType } from "redux-observable";
 
 const fetchStudentsEpic = (action$: any) =>
-    action$.ofType(StudentActions.GET_STUDENT)
-        .mergeMap(({payload}: any) =>
-            ajax({
-                method: 'PATCH',
-                url: payload.url,
-                body: JSON.stringify(payload),
-            }).pipe(
-                map((resp: any) => AAddStudent(resp))
-            )
-        );
+  action$.pipe(
+    ofType(AAddStudent),
+    mergeMap((action: any) =>
+      ajax
+        .getJSON(`https://api.github.com/users/${action.payload}`)
+        .pipe(map(response => AGetStudentsSucess()))
+    )
+  );
+
 const addStudentEpic = (action$: any) =>
-    action$.ofType(StudentActions.ADD_STUDENT)
-        .mergeMap(({payload}: any) =>
-            ajax({
-                method: 'POST',
-                url: payload.url,
-                body: JSON.stringify(payload),
-            }).pipe(
-                map((resp: any) => AAddStudent(resp))
-            )
-        );
-export default [
-    fetchStudentsEpic,
-    addStudentEpic
-]
+  action$.pipe(
+    ofType(AAddStudent),
+    mergeMap((action: any) =>
+      ajax
+        .getJSON(`https://api.github.com/users/${action.payload}`)
+        .pipe(map(response => AAddStudentSucess()))
+    )
+  );
+export default [fetchStudentsEpic, addStudentEpic];
