@@ -13,7 +13,7 @@ Liste des membres du groupe:
 
 ReactJS - Typescript - Redux - RxJS - Redux-Observable
 
-# Fonctionnement du store
+### Fonctionnement du store
 
 ![Fonctionnement](https://snipcart.com/media/203947/how-redux-works.png)
 
