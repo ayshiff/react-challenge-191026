@@ -13,21 +13,21 @@ import { ofType } from "redux-observable";
 
 const fetchTeachersEpic = (action$: any) =>
   action$.pipe(
-    ofType(AAddTeacher),
-    mergeMap((action: any) =>
-      ajax
-        .getJSON(`https://api.github.com/users/${action.payload}`)
-        .pipe(map(response => AGetTeachersSucess()))
-    )
+    ofType(AAddTeacher)
+    // mergeMap((action: any) =>
+    //   ajax
+    //     .getJSON(`https://api.github.com/users/${action.payload}`)
+    //     .pipe(map(response => AGetTeachersSucess()))
+    // )
   );
 
 const addTeacherEpic = (action$: any) =>
   action$.pipe(
-    ofType(AAddTeacher),
-    mergeMap((action: any) =>
-      ajax
-        .getJSON(`https://api.github.com/users/${action.payload}`)
-        .pipe(map(response => AAddTeacherSucess()))
-    )
+    ofType(AAddTeacher)
+    // mergeMap((action: any) =>
+    //   ajax
+    //     .getJSON(`https://api.github.com/users/${action.payload}`)
+    //     .pipe(map(response => AAddTeacherSucess()))
+    // )
   );
 export default [fetchTeachersEpic, addTeacherEpic];

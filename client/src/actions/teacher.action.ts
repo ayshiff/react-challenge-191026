@@ -16,46 +16,46 @@ export const TeacherActions = {
   GET_TEACHER_SUCCESS: "[TEACHER] GET_TEACHER_SUCCESS"
 };
 
-export const AAddTeacher = (
+export const AAddTeacherSucess = (
   payload: Teacher
-): { action: string; payload: any } => ({
-  action: TeacherActions.ADD_TEACHER,
+): { type: string; payload: any } => ({
+  type: TeacherActions.ADD_TEACHER_SUCCESS,
   payload
 });
 
-export const AEditTeacher = (
+export const AEditTeacherSucess = (
   payload: Teacher
-): { action: string; payload: any } => ({
-  action: TeacherActions.EDIT_TEACHER,
+): { type: string; payload: any } => ({
+  type: TeacherActions.EDIT_TEACHER_SUCCESS,
   payload
 });
 
-export const ADeleteTeacher = (
+export const ADeleteTeacherSucess = (
   payload: Teacher
-): { action: string; payload: any } => ({
-  action: TeacherActions.DELETE_TEACHER,
+): { type: string; payload: any } => ({
+  type: TeacherActions.DELETE_TEACHER_SUCCESS,
   payload
 });
 
-export const AGetTeachers = (
+export const AGetTeachersSucess = (
   payload: Teacher
-): { action: string; payload: any } => ({
-  action: TeacherActions.GET_TEACHER,
+): { type: string; payload: any } => ({
+  type: TeacherActions.GET_TEACHER_SUCCESS,
   payload
 });
 
-export const AAddTeacherSucess = (): { action: string } => ({
-  action: TeacherActions.ADD_TEACHER_SUCCESS
+export const AAddTeacher = (): { type: string } => ({
+  type: TeacherActions.ADD_TEACHER
 });
 
-export const AEditStudnetSucess = (): { action: string } => ({
-  action: TeacherActions.EDIT_TEACHER_SUCCESS
+export const AEditTeacher = (): { type: string } => ({
+  type: TeacherActions.EDIT_TEACHER
 });
 
-export const ADeleteTeacherSucess = (): { action: string } => ({
-  action: TeacherActions.DELETE_TEACHER_SUCCESS
+export const ADeleteTeacher = (): { type: string } => ({
+  type: TeacherActions.DELETE_TEACHER
 });
 
-export const AGetTeachersSucess = (): { action: string } => ({
-  action: TeacherActions.GET_TEACHER_SUCCESS
+export const AGetTeachers = (): { type: string } => ({
+  type: TeacherActions.GET_TEACHER
 });

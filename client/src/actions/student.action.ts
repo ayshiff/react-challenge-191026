@@ -16,46 +16,46 @@ export const StudentActions = {
   GET_STUDENT_SUCCESS: "[STUDENT] GET_STUDENT_SUCCESS"
 };
 
-export const AAddStudent = (
+export const AAddStudentSucess = (
   payload: Student
-): { action: string; payload: any } => ({
-  action: StudentActions.ADD_STUDENT,
+): { type: string; payload: any } => ({
+  type: StudentActions.ADD_STUDENT_SUCCESS,
   payload
 });
 
-export const AEditStudnet = (
+export const AEditStudnetSucess = (
   payload: Student
-): { action: string; payload: any } => ({
-  action: StudentActions.EDIT_STUDENT,
+): { type: string; payload: any } => ({
+  type: StudentActions.EDIT_STUDENT_SUCCESS,
   payload
 });
 
-export const ADeleteStudent = (
+export const ADeleteStudentSucess = (
   payload: Student
-): { action: string; payload: any } => ({
-  action: StudentActions.DELETE_STUDENT,
+): { type: string; payload: any } => ({
+  type: StudentActions.DELETE_STUDENT_SUCCESS,
   payload
 });
 
-export const AGetStudents = (
+export const AGetStudentsSucess = (
   payload: Student
-): { action: string; payload: any } => ({
-  action: StudentActions.GET_STUDENT,
+): { type: string; payload: any } => ({
+  type: StudentActions.GET_STUDENT_SUCCESS,
   payload
 });
 
-export const AAddStudentSucess = (): { action: string } => ({
-  action: StudentActions.ADD_STUDENT_SUCCESS
+export const AAddStudent = (): { type: string } => ({
+  type: StudentActions.ADD_STUDENT
 });
 
-export const AEditStudnetSucess = (): { action: string } => ({
-  action: StudentActions.EDIT_STUDENT_SUCCESS
+export const AEditStudnet = (): { type: string } => ({
+  type: StudentActions.EDIT_STUDENT
 });
 
-export const ADeleteStudentSucess = (): { action: string } => ({
-  action: StudentActions.DELETE_STUDENT_SUCCESS
+export const ADeleteStudent = (): { type: string } => ({
+  type: StudentActions.DELETE_STUDENT
 });
 
-export const AGetStudentsSucess = (): { action: string } => ({
-  action: StudentActions.GET_STUDENT_SUCCESS
+export const AGetStudents = (): { type: string } => ({
+  type: StudentActions.GET_STUDENT
 });
