@@ -4,12 +4,12 @@ import { createEpicMiddleware } from "redux-observable";
 import rootReducer from "../reducers/index";
 import rootEpic from "../epics/index";
 
-const epicMiddleware = createEpicMiddleware<Action<any>, Action<any>, any>();
+const epicMiddleware = createEpicMiddleware();
 
 const middlewares = [epicMiddleware];
 const initialState = {
-  students: [],
-  teachers: []
+  student: { list: [], fetching: false },
+  teacher: { list: [], fetching: false }
 };
 
 const composeEnhancers =
