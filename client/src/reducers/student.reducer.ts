@@ -6,48 +6,57 @@ import {
   ADeleteStudentSucess,
   AEditStudnetSucess,
   AGetStudents,
-  AGetStudentsSucess
+  AGetStudentsSucess,
+  StudentActions
 } from "../actions/student.action";
 
 const initialState: any = {
-  status: [],
+  list: [],
   fetching: false
 };
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case AAddStudent:
+    case StudentActions.ADD_STUDENT_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
+    case StudentActions.DELETE_STUDENT_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
+    case StudentActions.EDIT_STUDENT_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
+    case StudentActions.ADD_STUDENT:
       return {
         ...state,
-        student: state.student.concat(action.payload),
         fetching: true
       };
-    case ADeleteStudent:
+    case StudentActions.DELETE_STUDENT:
       return {
         ...state,
-        student: state.student.concat(action.payload),
         fetching: true
       };
-    case AEditStudnet:
+    case StudentActions.EDIT_STUDENT:
       return {
         ...state,
-        student: state.student.concat(action.payload),
-        fetching: true
+        fetching: false
       };
-    case AAddStudentSucess:
-      return { ...state, fetching: false };
-    case ADeleteStudentSucess:
-      return { ...state, fetching: false };
-    case AEditStudnetSucess:
-      return { ...state, fetching: false };
-    case AGetStudents:
+    case StudentActions.GET_STUDENT_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
+    case StudentActions.GET_STUDENT:
       return {
         ...state,
-        student: state.student.concat(action.payload),
         fetching: true
       };
-    case AGetStudentsSucess:
-      return { ...state, fetching: false };
     default:
       return state;
   }

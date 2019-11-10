@@ -4,50 +4,59 @@ import {
   AEditTeacher,
   AAddTeacherSucess,
   ADeleteTeacherSucess,
-  AEditStudnetSucess,
+  AEditTeacherSucess,
   AGetTeachers,
-  AGetTeachersSucess
+  AGetTeachersSucess,
+  TeacherActions
 } from "../actions/teacher.action";
 
 const initialState: any = {
-  status: [],
+  list: [],
   fetching: false
 };
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case AAddTeacher:
+    case TeacherActions.ADD_TEACHER_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
+    case TeacherActions.DELETE_TEACHER_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
+    case TeacherActions.EDIT_TEACHER_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
+    case TeacherActions.ADD_TEACHER:
       return {
         ...state,
-        Teacher: state.Teacher.concat(action.payload),
         fetching: true
       };
-    case ADeleteTeacher:
+    case TeacherActions.DELETE_TEACHER:
       return {
         ...state,
-        Teacher: state.Teacher.concat(action.payload),
         fetching: true
       };
-    case AEditTeacher:
+    case TeacherActions.EDIT_TEACHER:
       return {
         ...state,
-        Teacher: state.Teacher.concat(action.payload),
         fetching: true
       };
-    case AAddTeacherSucess:
-      return { ...state, fetching: false };
-    case ADeleteTeacherSucess:
-      return { ...state, fetching: false };
-    case AEditStudnetSucess:
-      return { ...state, fetching: false };
-    case AGetTeachers:
+    case TeacherActions.GET_TEACHER_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
+    case TeacherActions.GET_TEACHER:
       return {
         ...state,
-        Teacher: state.Teacher.concat(action.payload),
         fetching: true
       };
-    case AGetTeachersSucess:
-      return { ...state, fetching: false };
     default:
       return state;
   }
