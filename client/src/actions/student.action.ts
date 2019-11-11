@@ -1,8 +1,10 @@
 export interface Student {
   name: string;
-  surname: string;
-  description: string;
-  email: string;
+  ux: string;
+  ui: string;
+  frontend: string;
+  backend: string;
+  projectManagement: string;
 }
 
 export const StudentActions = {
@@ -44,8 +46,11 @@ export const AGetStudentsSucess = (
   payload
 });
 
-export const AAddStudent = (): { type: string } => ({
-  type: StudentActions.ADD_STUDENT
+export const AAddStudent = (
+  payload: Student
+): { type: string; payload: any } => ({
+  type: StudentActions.ADD_STUDENT,
+  payload
 });
 
 export const AEditStudnet = (): { type: string } => ({
