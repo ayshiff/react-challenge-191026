@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AGetStudents, Student } from "../actions/student.action";
 import { Teacher } from "../actions/teacher.action";
 import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
+import "./home.component.scss";
+
+// Components
+import Menu from "./home/menu.component";
+import Add from "./add.component";
 
 interface IProps {
   onFetchStudents: any;
@@ -14,32 +19,44 @@ interface IProps {
 
 interface IState {}
 
-class Home extends React.Component<IProps, IState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    const { students, isFetchingStudents } = this.props;
-    return (
+const Home = (props: IProps) => {
+  const { students, isFetchingStudents } = props;
+  const [menuUsed, setMenuUsed] = useState(false);
+
+  useEffect(() => {
+    props.onFetchStudents();
+  }, []);
+
+  return (
+    <div className="container_home">
+      <Menu />
+      <div className="header">
+        <h1>Promotion</h1>
+      </div>
       <div>
-        <button onClick={this.props.onFetchStudents}>Fetch students</button>
         {isFetchingStudents && (
           <Spinner animation="border" role="status">
             <span className="sr-only">Loading...</span>
           </Spinner>
         )}
-        {!isFetchingStudents &&
-          students.map((student: Student, id) => (
-            <div key={id}>
-              <h1>{student.name}</h1>
-              <h1>{student.surname}</h1>
-            </div>
-          ))}
+        <div className="student-row">
+          {!isFetchingStudents &&
+            students.map((student: Student, id) => (
+              <div key={id} className="student_element">
+                <span>{student.name}</span>
+                <span>{student.ux}</span>
+                <span>{student.ui}</span>
+                <span>{student.frontend}</span>
+                <span>{student.backend}</span>
+                <span>{student.projectManagement}</span>
+              </div>
+            ))}
+        </div>
       </div>
-    );
-  }
-}
+      <Add />
+    </div>
+  );
+};
 
 const mapStateToProps = (state: any) => {
   return {
