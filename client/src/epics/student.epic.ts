@@ -18,9 +18,11 @@ const fetchStudentsEpic = (action$: any) => {
     mapTo(
       AGetStudentsSucess({
         name: "ok",
-        surname: "ok2",
-        description: "description",
-        email: "emailtest"
+        ux: "A",
+        ui: "A",
+        frontend: "A",
+        backend: "A",
+        projectManagement: "A"
       })
     )
     //   ajax
@@ -32,18 +34,9 @@ const fetchStudentsEpic = (action$: any) => {
 const addStudentEpic = (action$: any) =>
   action$.pipe(
     ofType(StudentActions.ADD_STUDENT),
-    mapTo(
-      AAddStudentSucess({
-        name: "ok",
-        surname: "ok2",
-        description: "description",
-        email: "emailtest"
-      })
-    )
-    // mergeMap((action: any) =>
-    //   ajax
-    //     .getJSON(`https://api.github.com/users/${action.payload}`)
-    //     .pipe(map(response => AAddStudentSucess()))
-    // )
+    map((action: any) => {
+      return AAddStudentSucess(action.payload);
+    })
   );
+
 export default [fetchStudentsEpic, addStudentEpic];
