@@ -101,18 +101,18 @@ const mapDispatchToProps = (dispatch: any) => {
       frontend: string,
       backend: string,
       projectManagement: string
-    ) =>
-      dispatch(
-        AAddStudent({
-          id,
-          name,
-          ux,
-          ui,
-          frontend,
-          backend,
-          projectManagement
-        })
-      )
+    ) => console.log(id)
+    // dispatch(
+    //   AAddStudent({
+    //     id,
+    //     name,
+    //     ux,
+    //     ui,
+    //     frontend,
+    //     backend,
+    //     projectManagement
+    //   })
+    // )
   };
 };
 

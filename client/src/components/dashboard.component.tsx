@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AGetStudents, Student } from "../actions/student.action";
+import { AGetAllStudents, Student } from "../actions/student.action";
 import { Teacher } from "../actions/teacher.action";
 import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
@@ -68,7 +68,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onFetchStudents: () => dispatch(AGetStudents())
+    onFetchStudents: () => dispatch(AGetAllStudents())
   };
 };
 
