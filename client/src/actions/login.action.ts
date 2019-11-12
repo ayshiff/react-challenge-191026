@@ -5,7 +5,8 @@ export interface LoginPayload {
 
 export const LoginActions = {
   LOGIN: "[LOGIN] USER_LOGIN",
-  LOGIN_SUCCESS: "[LOGIN] USER_LOGIN_SUCCESS"
+  LOGIN_SUCCESS: "[LOGIN] USER_LOGIN_SUCCESS",
+  LOGIN_FAIL: "[LOGIN] USER_LOGIN_FAIL"
 };
 
 export const ALoginUser = (
