@@ -1,5 +1,6 @@
 export interface Promo {
   id: number;
+  name: string;
   year: number;
   cursusId: number;
 }
@@ -51,7 +52,7 @@ export const AGetPromosSuccess = (
 });
 
 export const AGetAllPromosSuccess = (
-  payload: Promo
+  payload: Promo[]
 ): { type: string; payload: any } => ({
   type: PromoActions.GET_ALL_PROMO_SUCCESS,
   payload
