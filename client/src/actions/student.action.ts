@@ -6,6 +6,21 @@ export interface Student {
   frontend: string;
   backend: string;
   projectManagement: string;
+
+  // FilterPayload
+  field?: string;
+  value?: string;
+}
+
+export interface filterPayload {
+  id?: string;
+  field: string;
+  value: string;
+}
+
+export interface Payload {
+  type: string;
+  payload: Student | filterPayload;
 }
 
 export const StudentActions = {
@@ -16,12 +31,20 @@ export const StudentActions = {
   ADD_STUDENT_SUCCESS: "[STUDENT] ADD_STUDEN_SUCCESST",
   EDIT_STUDENT_SUCCESS: "[STUDENT] EDIT_STUDENT_SUCCESS",
   DELETE_STUDENT_SUCCESS: "[STUDENT] DELETE_STUDENT_SUCCESS",
-  GET_STUDENT_SUCCESS: "[STUDENT] GET_STUDENT_SUCCESS"
+  GET_STUDENT_SUCCESS: "[STUDENT] GET_STUDENT_SUCCESS",
+  FILTER_STUDENT: "[STUDENT] FILTER"
 };
+
+export const AFilterStudent = (
+  payload: filterPayload
+): { type: string; payload: any } => ({
+  type: StudentActions.FILTER_STUDENT,
+  payload
+});
 
 export const AAddStudentSucess = (
   payload: Student
-): { type: string; payload: any } => ({
+): { type: string; payload: Student } => ({
   type: StudentActions.ADD_STUDENT_SUCCESS,
   payload
 });
@@ -49,7 +72,7 @@ export const AGetStudentsSucess = (
 
 export const AAddStudent = (
   payload: Student
-): { type: string; payload: any } => ({
+): { type: string; payload: Student } => ({
   type: StudentActions.ADD_STUDENT,
   payload
 });
