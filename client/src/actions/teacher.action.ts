@@ -1,9 +1,9 @@
 export interface Teacher {
-  id: string;
-  name: string;
-  surname: string;
-  description: string;
-  email: string;
+  id: number;
+  firstname: string;
+  lastname: string;
+  mail: string;
+  password: string;
 }
 
 export const TeacherActions = {
