@@ -16,6 +16,14 @@ export default (state = initialState, action: Payload) => {
         ),
         fetching: false
       };
+    case StudentActions.SEARCH_STUDENT:
+      return {
+        list: state.list.filter((student: Student) =>
+          // @ts-ignore
+          student.name.includes(action.payload.search)
+        ),
+        fetching: false
+      };
     case StudentActions.ADD_STUDENT_SUCCESS:
       return {
         list: state.list.concat(action.payload),

@@ -18,6 +18,10 @@ export interface filterPayload {
   value: string;
 }
 
+export interface searchPayload {
+  search: string;
+}
+
 export interface Payload {
   type: string;
   payload: Student | filterPayload;
@@ -32,13 +36,21 @@ export const StudentActions = {
   EDIT_STUDENT_SUCCESS: "[STUDENT] EDIT_STUDENT_SUCCESS",
   DELETE_STUDENT_SUCCESS: "[STUDENT] DELETE_STUDENT_SUCCESS",
   GET_STUDENT_SUCCESS: "[STUDENT] GET_STUDENT_SUCCESS",
-  FILTER_STUDENT: "[STUDENT] FILTER"
+  FILTER_STUDENT: "[STUDENT] FILTER",
+  SEARCH_STUDENT: "[STUDENT] SEARCH"
 };
 
 export const AFilterStudent = (
   payload: filterPayload
 ): { type: string; payload: any } => ({
   type: StudentActions.FILTER_STUDENT,
+  payload
+});
+
+export const ASearchStudent = (
+  payload: searchPayload
+): { type: string; payload: any } => ({
+  type: StudentActions.SEARCH_STUDENT,
   payload
 });
 
