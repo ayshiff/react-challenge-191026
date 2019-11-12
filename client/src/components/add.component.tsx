@@ -94,6 +94,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     onAddStudent: (
+      id: string,
       name: string,
       ux: string,
       ui: string,
@@ -103,6 +104,7 @@ const mapDispatchToProps = (dispatch: any) => {
     ) =>
       dispatch(
         AAddStudent({
+          id,
           name,
           ux,
           ui,
@@ -114,7 +116,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Add);
+export default connect(mapStateToProps, mapDispatchToProps)(Add);

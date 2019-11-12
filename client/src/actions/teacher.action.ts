@@ -1,4 +1,5 @@
 export interface Teacher {
+  id: string;
   name: string;
   surname: string;
   description: string;
@@ -18,7 +19,7 @@ export const TeacherActions = {
 
 export const AAddTeacherSucess = (
   payload: Teacher
-): { type: string; payload: any } => ({
+): { type: string; payload: Teacher } => ({
   type: TeacherActions.ADD_TEACHER_SUCCESS,
   payload
 });
