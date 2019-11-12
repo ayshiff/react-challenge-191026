@@ -6,7 +6,8 @@ import {
   AGetStudentsSucess,
   AAddStudentSucess,
   AEditStudnetSucess,
-  ADeleteStudentSucess
+  ADeleteStudentSucess,
+  AGetAllStudentsSucess
 } from "../actions/student.action";
 import { ofType } from "redux-observable";
 
@@ -15,20 +16,22 @@ const API_URL = "https://api.github.com";
 const fetchStudentsEpic = (action$: any) => {
   return action$.pipe(
     ofType(StudentActions.GET_STUDENT),
-    mapTo(
-      AGetStudentsSucess({
-        id: "test",
-        name: "ok",
-        ux: "A",
-        ui: "A",
-        frontend: "A",
-        backend: "A",
-        projectManagement: "A"
-      })
+    mergeMap((action: any) =>
+      ajax
+        .getJSON(`${API_URL}/student/${action.payload}`)
+        .pipe(map(response => AGetStudentsSucess(action.payload)))
     )
-    //   ajax
-    //     .getJSON(`https://api.github.com/users/${action.payload}`)
-    //     .pipe(map(response => AGetStudentsSucess()))
+  );
+};
+
+const fetchAllStudentsEpic = (action$: any) => {
+  return action$.pipe(
+    ofType(StudentActions.GET_ALL_STUDENT),
+    mergeMap((action: any) =>
+      ajax
+        .getJSON(`${API_URL}/students/${action.payload}`)
+        .pipe(map(response => AGetAllStudentsSucess(action.payload)))
+    )
   );
 };
 
@@ -64,5 +67,6 @@ export default [
   fetchStudentsEpic,
   addStudentEpic,
   deleteStudentEpic,
-  editStudentEpic
+  editStudentEpic,
+  fetchAllStudentsEpic
 ];

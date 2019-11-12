@@ -1,11 +1,12 @@
 export interface Student {
-  id: string;
-  name: string;
-  ux: string;
-  ui: string;
-  frontend: string;
-  backend: string;
-  projectManagement: string;
+  id: number;
+  firstname: string;
+  lastname: string;
+  mail: string;
+  promoId: number;
+  resume: string;
+  photo: string;
+  link: string;
 
   // FilterPayload
   field?: string;
@@ -32,6 +33,7 @@ export const StudentActions = {
   EDIT_STUDENT: "[STUDENT] EDIT_STUDENT",
   DELETE_STUDENT: "[STUDENT] DELETE_STUDENT",
   GET_STUDENT: "[STUDENT] GET_STUDENT",
+  GET_ALL_STUDENT: "[STUDENT] GET_ALL_STUDENT",
   ADD_STUDENT_SUCCESS: "[STUDENT] ADD_STUDEN_SUCCESST",
   EDIT_STUDENT_SUCCESS: "[STUDENT] EDIT_STUDENT_SUCCESS",
   DELETE_STUDENT_SUCCESS: "[STUDENT] DELETE_STUDENT_SUCCESS",
@@ -82,6 +84,13 @@ export const AGetStudentsSucess = (
   payload
 });
 
+export const AGetAllStudentsSucess = (
+  payload: Student
+): { type: string; payload: any } => ({
+  type: StudentActions.GET_STUDENT_SUCCESS,
+  payload
+});
+
 export const AAddStudent = (
   payload: Student
 ): { type: string; payload: Student } => ({
@@ -99,4 +108,8 @@ export const ADeleteStudent = (): { type: string } => ({
 
 export const AGetStudents = (): { type: string } => ({
   type: StudentActions.GET_STUDENT
+});
+
+export const AGetAllStudents = (): { type: string } => ({
+  type: StudentActions.GET_ALL_STUDENT
 });
