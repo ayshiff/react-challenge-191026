@@ -1,14 +1,4 @@
-import {
-  AAddStudent,
-  ADeleteStudent,
-  AEditStudnet,
-  AAddStudentSucess,
-  ADeleteStudentSucess,
-  AEditStudnetSucess,
-  AGetStudents,
-  AGetStudentsSucess,
-  StudentActions
-} from "../actions/student.action";
+import { StudentActions, Student } from "../actions/student.action";
 
 const initialState: any = {
   list: [],
@@ -24,12 +14,18 @@ export default (state = initialState, action: any) => {
       };
     case StudentActions.DELETE_STUDENT_SUCCESS:
       return {
-        list: state.list.concat(action.payload),
+        list: state.list.filter(
+          (student: Student) => student.id !== action.payload.id
+        ),
         fetching: false
       };
     case StudentActions.EDIT_STUDENT_SUCCESS:
       return {
-        list: state.list.concat(action.payload),
+        list: state.list.map((student: Student) => {
+          const { id } = action.payload.id;
+          if (student.id === id) return action.payload;
+          return student;
+        }),
         fetching: false
       };
     case StudentActions.ADD_STUDENT:
