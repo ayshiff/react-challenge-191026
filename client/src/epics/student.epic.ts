@@ -1,5 +1,6 @@
 import { ajax } from "rxjs/ajax";
-import { map, mergeMap, mapTo, delay } from "rxjs/operators";
+import { map, mergeMap, catchError } from "rxjs/operators";
+import { of } from "rxjs";
 
 import {
   StudentActions,
@@ -17,9 +18,16 @@ const fetchStudentsEpic = (action$: any) => {
   return action$.pipe(
     ofType(StudentActions.GET_STUDENT),
     mergeMap((action: any) =>
-      ajax
-        .getJSON(`${API_URL}/student/${action.payload}`)
-        .pipe(map(response => AGetStudentsSucess(action.payload)))
+      ajax.getJSON(`${API_URL}/student/${action.payload}`).pipe(
+        map(response => AGetStudentsSucess(action.payload)),
+        catchError(error =>
+          of({
+            type: StudentActions.GET_STUDENT_FAIL,
+            payload: error.xhr.response,
+            error: true
+          })
+        )
+      )
     )
   );
 };
@@ -28,9 +36,16 @@ const fetchAllStudentsEpic = (action$: any) => {
   return action$.pipe(
     ofType(StudentActions.GET_ALL_STUDENT),
     mergeMap((action: any) =>
-      ajax
-        .getJSON(`${API_URL}/students/${action.payload}`)
-        .pipe(map(response => AGetAllStudentsSucess(action.payload)))
+      ajax.getJSON(`${API_URL}/students/${action.payload}`).pipe(
+        map(response => AGetAllStudentsSucess(action.payload)),
+        catchError(error =>
+          of({
+            type: StudentActions.GET_ALL_STUDENT_FAIL,
+            payload: error.xhr.response,
+            error: true
+          })
+        )
+      )
     )
   );
 };
@@ -47,9 +62,16 @@ const deleteStudentEpic = (action$: any) =>
   action$.pipe(
     ofType(StudentActions.DELETE_STUDENT),
     mergeMap((action: any) =>
-      ajax
-        .getJSON(`${API_URL}/student/${action.payload}`)
-        .pipe(map(response => ADeleteStudentSucess(action.payload)))
+      ajax.getJSON(`${API_URL}/student/${action.payload}`).pipe(
+        map(response => ADeleteStudentSucess(action.payload)),
+        catchError(error =>
+          of({
+            type: StudentActions.DELETE_STUDENT_FAIL,
+            payload: error.xhr.response,
+            error: true
+          })
+        )
+      )
     )
   );
 
@@ -57,9 +79,16 @@ const editStudentEpic = (action$: any) =>
   action$.pipe(
     ofType(StudentActions.EDIT_STUDENT),
     mergeMap((action: any) =>
-      ajax
-        .getJSON(`${API_URL}/student/${action.payload}`)
-        .pipe(map(response => AEditStudnetSucess(action.payload)))
+      ajax.getJSON(`${API_URL}/student/${action.payload}`).pipe(
+        map(response => AEditStudnetSucess(action.payload)),
+        catchError(error =>
+          of({
+            type: StudentActions.EDIT_STUDENT_FAIL,
+            payload: error.xhr.response,
+            error: true
+          })
+        )
+      )
     )
   );
 
