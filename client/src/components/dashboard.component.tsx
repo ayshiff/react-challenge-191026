@@ -3,10 +3,10 @@ import { AGetStudents, Student } from "../actions/student.action";
 import { Teacher } from "../actions/teacher.action";
 import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
-import "./home.component.scss";
+import "./dashboard.component.scss";
 
 // Components
-import Menu from "./home/menu.component";
+import Menu from "./dashboard/menu.component";
 import Add from "./add.component";
 
 interface IProps {
@@ -21,7 +21,6 @@ interface IState {}
 
 const Home = (props: IProps) => {
   const { students, isFetchingStudents } = props;
-  const [menuUsed, setMenuUsed] = useState(false);
 
   useEffect(() => {
     props.onFetchStudents();
@@ -73,7 +72,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
