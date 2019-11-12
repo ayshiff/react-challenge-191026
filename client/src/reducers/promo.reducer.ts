@@ -48,6 +48,11 @@ export default (state = initialState, action: any) => {
         list: state.list.concat(action.payload),
         fetching: false
       };
+    case PromoActions.GET_ALL_PROMO_SUCCESS:
+      return {
+        list: state.list.concat(action.payload),
+        fetching: false
+      };
     case PromoActions.GET_PROMO:
       return {
         ...state,
