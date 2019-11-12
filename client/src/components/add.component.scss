@@ -1,0 +1,31 @@
+.add_grade {
+  width: 5vw;
+}
+.add_student {
+  margin-bottom: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.container_add {
+  display: flex;
+  flex-direction: row;
+  height: 60px;
+  position: absolute;
+  align-items: center;
+  bottom: 0;
+  left: 10vw;
+  justify-content: space-between;
+  width: 70vw;
+  input {
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: none;
+    height: 25px;
+    background-image: none;
+    background-color: rgb(192, 192, 201);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
+}
