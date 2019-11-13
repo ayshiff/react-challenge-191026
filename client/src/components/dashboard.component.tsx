@@ -42,12 +42,7 @@ const Home = (props: IProps) => {
           {!isFetchingStudents &&
             students.map((student: Student, id) => (
               <div key={id} className="student_element">
-                <span>{student.name}</span>
-                <span>{student.ux}</span>
-                <span>{student.ui}</span>
-                <span>{student.frontend}</span>
-                <span>{student.backend}</span>
-                <span>{student.projectManagement}</span>
+                
               </div>
             ))}
         </div>
