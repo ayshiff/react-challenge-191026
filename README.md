@@ -9,6 +9,10 @@ Liste des membres du groupe:
 - Cristophe Charlebois
 - Rémi Doreau
 
+Adresse du serveur:
+
+51.158.111.46
+
 ## FrontEnd
 
 ReactJS - Typescript - Redux - RxJS - Redux-Observable
