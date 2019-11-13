@@ -3,10 +3,23 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"students", "users"}},
+ *     denormalizationContext={"groups"={"students", "users"}},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"security"="is_granted('ROLE_ADMIN')"}
+ *     },
+ *     itemOperations={
+ *         "get",
+ *         "put"={"security"="is_granted('ROLE_ADMIN') or object.user == user"}
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\StudentRepository")
  */
 class Student
@@ -15,42 +28,50 @@ class Student
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("students")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups("students")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups("students")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("students")
      */
     private $birthdate;
 
     /**
      * @ORM\Column(type="string", length=1000, nullable=true)
+     * @Groups("students")
      */
     private $resume;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("students")
      */
     private $photo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("students")
      */
     private $link;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("students")
      */
     private $user;
 
