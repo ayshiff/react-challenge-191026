@@ -19,7 +19,7 @@ services:
   database:
     image: mysql:5.7
     volumes:
-      - ./database:/var/lib/mysql
+      - data:/var/lib/mysql
     networks: 
       - backend
     environment:
@@ -32,3 +32,5 @@ services:
 
 networks: 
   backend:
+volumes:
+  data:
