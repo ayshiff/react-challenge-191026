@@ -1,3 +1,21 @@
-services:
+version: "3"
 
-  
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/app
+      - ./server.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - backend
+  php:
+    image: php:7-fpm
+    volumes:
+      - ./backend:/app
+    networks:
+      - backend
+
+networks: 
+  backend:
