@@ -1,11 +1,11 @@
 import React from "react";
-import logo from "./logo.svg";
-import Home from "./components/home.component";
+import Dashboard from "./components/dashboard.component";
+import Login from "./components/login.component";
 
 const App = () => {
   return (
     <div className="App">
-      <Home />
+      <Login />
     </div>
   );
 };

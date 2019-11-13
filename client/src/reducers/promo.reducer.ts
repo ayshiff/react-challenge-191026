@@ -1,4 +1,4 @@
-import { TeacherActions, Teacher } from "../actions/teacher.action";
+import { PromoActions, Promo } from "../actions/promo.action";
 
 const initialState: any = {
   list: [],
@@ -7,48 +7,48 @@ const initialState: any = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case TeacherActions.ADD_TEACHER_SUCCESS:
+    case PromoActions.ADD_PROMO_SUCCESS:
       return {
         list: state.list.concat(action.payload),
         fetching: false
       };
-    case TeacherActions.DELETE_TEACHER_SUCCESS:
+    case PromoActions.DELETE_PROMO_SUCCESS:
       return {
         list: state.list.filter(
-          (teacher: Teacher) => teacher.id !== action.payload.id
+          (promo: Promo) => promo.id !== action.payload.id
         ),
         fetching: false
       };
-    case TeacherActions.EDIT_TEACHER_SUCCESS:
+    case PromoActions.EDIT_PROMO_SUCCESS:
       return {
-        list: state.list.map((teacher: Teacher) => {
-          const { id } = action.payload.id;
-          if (teacher.id === id) return action.payload;
-          return teacher;
+        list: state.list.map((promo: Promo) => {
+          const { id } = action.payload;
+          if (promo.id === id) return action.payload;
+          return promo;
         }),
         fetching: false
       };
-    case TeacherActions.ADD_TEACHER:
+    case PromoActions.ADD_PROMO:
       return {
         ...state,
         fetching: true
       };
-    case TeacherActions.DELETE_TEACHER:
+    case PromoActions.DELETE_PROMO:
       return {
         ...state,
         fetching: true
       };
-    case TeacherActions.EDIT_TEACHER:
+    case PromoActions.EDIT_PROMO:
       return {
         ...state,
-        fetching: true
+        fetching: false
       };
-    case TeacherActions.GET_TEACHER_SUCCESS:
+    case PromoActions.GET_PROMO_SUCCESS:
       return {
         list: state.list.concat(action.payload),
         fetching: false
       };
-    case TeacherActions.GET_TEACHER:
+    case PromoActions.GET_PROMO:
       return {
         ...state,
         fetching: true

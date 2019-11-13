@@ -9,7 +9,10 @@ const epicMiddleware = createEpicMiddleware();
 const middlewares = [epicMiddleware];
 const initialState = {
   student: { list: [], fetching: false },
-  teacher: { list: [], fetching: false }
+  teacher: { list: [], fetching: false },
+  promo: { list: [], fetching: false },
+  group: { list: [], fetching: false },
+  auth: false
 };
 
 const composeEnhancers =

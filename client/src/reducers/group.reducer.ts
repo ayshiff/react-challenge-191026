@@ -1,4 +1,4 @@
-import { TeacherActions, Teacher } from "../actions/teacher.action";
+import { GroupActions, Group } from "../actions/group.action";
 
 const initialState: any = {
   list: [],
@@ -7,48 +7,48 @@ const initialState: any = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case TeacherActions.ADD_TEACHER_SUCCESS:
+    case GroupActions.ADD_GROUP_SUCCESS:
       return {
         list: state.list.concat(action.payload),
         fetching: false
       };
-    case TeacherActions.DELETE_TEACHER_SUCCESS:
+    case GroupActions.DELETE_GROUP_SUCCESS:
       return {
         list: state.list.filter(
-          (teacher: Teacher) => teacher.id !== action.payload.id
+          (group: Group) => group.id !== action.payload.id
         ),
         fetching: false
       };
-    case TeacherActions.EDIT_TEACHER_SUCCESS:
+    case GroupActions.EDIT_GROUP_SUCCESS:
       return {
-        list: state.list.map((teacher: Teacher) => {
-          const { id } = action.payload.id;
-          if (teacher.id === id) return action.payload;
-          return teacher;
+        list: state.list.map((group: Group) => {
+          const { id } = action.payload;
+          if (group.id === id) return action.payload;
+          return group;
         }),
         fetching: false
       };
-    case TeacherActions.ADD_TEACHER:
+    case GroupActions.ADD_GROUP:
       return {
         ...state,
         fetching: true
       };
-    case TeacherActions.DELETE_TEACHER:
+    case GroupActions.DELETE_GROUP:
       return {
         ...state,
         fetching: true
       };
-    case TeacherActions.EDIT_TEACHER:
+    case GroupActions.EDIT_GROUP:
       return {
         ...state,
-        fetching: true
+        fetching: false
       };
-    case TeacherActions.GET_TEACHER_SUCCESS:
+    case GroupActions.GET_GROUP_SUCCESS:
       return {
         list: state.list.concat(action.payload),
         fetching: false
       };
-    case TeacherActions.GET_TEACHER:
+    case GroupActions.GET_GROUP:
       return {
         ...state,
         fetching: true
