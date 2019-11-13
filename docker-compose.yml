@@ -10,12 +10,14 @@ services:
       - ./server.conf:/etc/nginx/conf.d/default.conf
     networks:
       - backend
+
   php:
     image: amauryfaveriel/php-fpm
     volumes:
       - ./backend:/app
     networks:
       - backend
+
   database:
     image: mysql:5.7
     volumes:
@@ -27,8 +29,6 @@ services:
       MYSQL_DATABASE: heticchallenge
       MYSQL_USER: hetic
       MYSQL_PASSWORD: hetic
-    ports:
-      - 3307:3306
 
 networks: 
   backend:
