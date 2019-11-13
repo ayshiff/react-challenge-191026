@@ -1,36 +1,47 @@
-import React, { useEffect } from "react";
-import { AGetStudents, Student } from "../actions/student.action";
-import { Teacher } from "../actions/teacher.action";
-import Spinner from "react-bootstrap/Spinner";
+import React, { useState } from "react";
+import { AGetStudents } from "../actions/student.action";
 import { connect } from "react-redux";
+import TextField, {Input} from '@material/react-text-field';
+import '@material/react-text-field/dist/text-field.css';
+import "./login.component.scss";
 
 interface IProps {
   onFetchStudents: any;
-  students: Student[];
-  isFetchingStudents: boolean;
-  teachers: Teacher[];
-  isFetchingteachers: boolean;
 }
 
-interface IState {}
+const Login = (props: IProps) => {
+  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
 
-const Home = (props: IProps) => {
-  const { students, isFetchingStudents } = props;
-
-  useEffect(() => {
-    props.onFetchStudents();
-  }, []);
-
-  return <div></div>;
-};
-
-const mapStateToProps = (state: any) => {
-  return {
-    students: state.student.list,
-    isFetchingStudents: state.student.fetching,
-    teachers: state.teacher.list,
-    isFetchingteachers: state.teacher.fetching
-  };
+  return <div className="loginWrap">
+    <div className="login">
+      <div className="title">
+        <h1>Intranet</h1>
+        <span></span>
+      </div>
+      <form>
+        <TextField
+          outlined
+          label='Adresse mail'
+          >
+          <Input
+            value={email}
+            // @ts-ignore
+            onChange={e => setEmail(e.target.value)} />
+        </TextField>
+        <TextField
+          outlined
+          label='Mot de passe'
+          >
+          <Input
+            value={password}
+            // @ts-ignore
+            onChange={e => setpassword(e.target.value)} />
+        </TextField>
+        <input className="submit" type="submit" name="submit" value="Se connecter"/>
+      </form>
+    </div>
+  </div>;
 };
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -40,6 +51,5 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 export default connect(
-  mapStateToProps,
   mapDispatchToProps
-)(Home);
+)(Login);
