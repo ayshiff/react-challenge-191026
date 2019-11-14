@@ -11,13 +11,20 @@ import {
 } from "../actions/teacher.action";
 import { ofType } from "redux-observable";
 
-const API_URL = "https://api.github.com";
+const API_URL = "http://51.158.111.46:8000/api/teachers";
 
 const fetchTeachersEpic = (action$: any) =>
   action$.pipe(
     ofType(TeacherActions.GET_TEACHER),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/teachers`).pipe(
+      ajax({
+        url: `${API_URL}/${action.payload.id}`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: action.payload
+      }).pipe(
         map(response => AGetTeachersSucess(action.payload)),
         catchError(error =>
           of({
@@ -34,7 +41,15 @@ const addTeacherEpic = (action$: any) =>
   action$.pipe(
     ofType(TeacherActions.ADD_TEACHER),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/teachers/add/${action.payload}`).pipe(
+      ajax({
+        url: `${API_URL}`,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: action.payload
+      }).pipe(
         map(response => AAddTeacherSucess(action.payload)),
         catchError(error =>
           of({
@@ -51,7 +66,15 @@ const deleteTeacherEpic = (action$: any) =>
   action$.pipe(
     ofType(TeacherActions.DELETE_TEACHER),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/teachers/delete/${action.payload}`).pipe(
+      ajax({
+        url: `${API_URL}/${action.payload.id}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: action.payload
+      }).pipe(
         map(response => ADeleteTeacherSucess(action.payload)),
         catchError(error =>
           of({
@@ -68,7 +91,15 @@ const editStudentEpic = (action$: any) =>
   action$.pipe(
     ofType(TeacherActions.EDIT_TEACHER),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/teachers/edit/${action.payload}`).pipe(
+      ajax({
+        url: `${API_URL}/${action.payload.id}`,
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: action.payload
+      }).pipe(
         map(response => AEditTeacherSucess(action.payload)),
         catchError(error =>
           of({

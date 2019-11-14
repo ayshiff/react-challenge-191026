@@ -3,29 +3,33 @@ import { map, mergeMap, catchError } from "rxjs/operators";
 import { of } from "rxjs";
 
 import {
-  StudentActions,
-  AGetStudentsSucess,
-  AAddStudentSucess,
-  AEditStudnetSucess,
-  ADeleteStudentSucess,
-  AGetAllStudentsSucess
-} from "../actions/student.action";
+  NoteActions,
+  AGetNotesSuccess,
+  AAddNoteSuccess,
+  AEditNoteSuccess,
+  ADeleteNoteSuccess,
+  AGetAllNotesSuccess
+} from "../actions/note.action";
 import { ofType } from "redux-observable";
 
-const API_URL = "http://51.158.111.46:8000/api/students";
+const API_URL = "http://51.158.111.46:8000/api/notes";
 
-const fetchStudentsEpic = (action$: any) => {
+const fetchNotesEpic = (action$: any) => {
   return action$.pipe(
-    ofType(StudentActions.GET_STUDENT),
+    ofType(NoteActions.GET_NOTE),
     mergeMap((action: any) =>
       ajax({
         url: `${API_URL}/${action.payload.id}`,
-        method: "GET"
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: action.payload
       }).pipe(
-        map(response => AGetStudentsSucess(action.payload)),
+        map(response => AGetNotesSuccess(action.payload)),
         catchError(error =>
           of({
-            type: StudentActions.GET_STUDENT_FAIL,
+            type: NoteActions.GET_NOTE_FAIL,
             payload: error.xhr.response,
             error: true
           })
@@ -35,18 +39,22 @@ const fetchStudentsEpic = (action$: any) => {
   );
 };
 
-const fetchAllStudentsEpic = (action$: any) => {
+const fetchAllNotesEpic = (action$: any) => {
   return action$.pipe(
-    ofType(StudentActions.GET_ALL_STUDENT),
+    ofType(NoteActions.GET_ALL_NOTE),
     mergeMap((action: any) =>
       ajax({
         url: `${API_URL}`,
-        method: "GET"
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: action.payload
       }).pipe(
-        map(response => AGetAllStudentsSucess(action.payload)),
+        map(response => AGetAllNotesSuccess(action.payload)),
         catchError(error =>
           of({
-            type: StudentActions.GET_ALL_STUDENT_FAIL,
+            type: NoteActions.GET_ALL_NOTE_FAIL,
             payload: error.xhr.response,
             error: true
           })
@@ -56,9 +64,9 @@ const fetchAllStudentsEpic = (action$: any) => {
   );
 };
 
-const addStudentEpic = (action$: any) =>
+const addNoteEpic = (action$: any) =>
   action$.pipe(
-    ofType(StudentActions.ADD_STUDENT),
+    ofType(NoteActions.ADD_NOTE),
     mergeMap((action: any) =>
       ajax({
         url: `${API_URL}`,
@@ -69,10 +77,10 @@ const addStudentEpic = (action$: any) =>
         },
         body: action.payload
       }).pipe(
-        map(response => AAddStudentSucess(action.payload)),
+        map(response => AAddNoteSuccess(action.payload)),
         catchError(error =>
           of({
-            type: StudentActions.DELETE_STUDENT_FAIL,
+            type: NoteActions.DELETE_NOTE_FAIL,
             payload: error.xhr.response,
             error: true
           })
@@ -81,23 +89,23 @@ const addStudentEpic = (action$: any) =>
     )
   );
 
-const deleteStudentEpic = (action$: any) =>
+const deleteNoteEpic = (action$: any) =>
   action$.pipe(
-    ofType(StudentActions.DELETE_STUDENT),
+    ofType(NoteActions.DELETE_NOTE),
     mergeMap((action: any) =>
       ajax({
-        url: `${API_URL}`,
-        method: "DELETE",
+        url: `${API_URL}/${action.payload.id}`,
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => ADeleteStudentSucess(action.payload)),
+        map(response => ADeleteNoteSuccess(action.payload)),
         catchError(error =>
           of({
-            type: StudentActions.DELETE_STUDENT_FAIL,
+            type: NoteActions.DELETE_NOTE_FAIL,
             payload: error.xhr.response,
             error: true
           })
@@ -106,9 +114,9 @@ const deleteStudentEpic = (action$: any) =>
     )
   );
 
-const editStudentEpic = (action$: any) =>
+const editNoteEpic = (action$: any) =>
   action$.pipe(
-    ofType(StudentActions.EDIT_STUDENT),
+    ofType(NoteActions.EDIT_NOTE),
     mergeMap((action: any) =>
       ajax({
         url: `${API_URL}/${action.payload.id}`,
@@ -119,10 +127,10 @@ const editStudentEpic = (action$: any) =>
         },
         body: action.payload
       }).pipe(
-        map(response => AEditStudnetSucess(action.payload)),
+        map(response => AEditNoteSuccess(action.payload)),
         catchError(error =>
           of({
-            type: StudentActions.EDIT_STUDENT_FAIL,
+            type: NoteActions.EDIT_NOTE_FAIL,
             payload: error.xhr.response,
             error: true
           })
@@ -132,9 +140,9 @@ const editStudentEpic = (action$: any) =>
   );
 
 export default [
-  fetchStudentsEpic,
-  addStudentEpic,
-  deleteStudentEpic,
-  editStudentEpic,
-  fetchAllStudentsEpic
+  fetchNotesEpic,
+  addNoteEpic,
+  deleteNoteEpic,
+  editNoteEpic,
+  fetchAllNotesEpic
 ];

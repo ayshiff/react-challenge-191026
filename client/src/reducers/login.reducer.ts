@@ -8,6 +8,7 @@ const initialState: any = {
 export default (state = initialState, action: any) => {
   switch (action.type) {
     case LoginActions.LOGIN_SUCCESS:
+      localStorage.setItem("token", action.payload);
       return {
         auth: true
       };
