@@ -88,7 +88,7 @@ const Home = (props: IProps) => {
           <Button className="header-button" type="primary">+ Ajouter un élève </Button>       
         </div>
         <div className="student-list-container">
-        <Table className="student-list" dataSource={data} columns={columns} pagination={false}/>
+        <Table className="student-list" dataSource={data} columns={columns} pagination={false} scroll={{ y: 240 }}/>
         </div>
       </div>
       <div>
@@ -111,7 +111,7 @@ const Home = (props: IProps) => {
             ))}
         </div>
       </div>
-      <Add />
+      {/* <Add /> */}
     </div>
   );
 };
