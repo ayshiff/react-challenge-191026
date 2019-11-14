@@ -73,12 +73,7 @@ const Home = (props: IProps) => {
 
   useEffect(() => {
     props.onFetchStudents();
-  }, []);
-
-  useState(() => {
-    visible: false
-  });
-  
+  }, []);  
 
   return (
     <div className="container_home">
