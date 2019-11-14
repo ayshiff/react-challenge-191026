@@ -3,7 +3,9 @@ import { AGetAllStudents, Student } from "../actions/student.action";
 import { Teacher } from "../actions/teacher.action";
 import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
+import { Table, Divider, Button } from 'antd';
 import "./dashboard.component.scss";
+import "./reset.scss"
 
 // Components
 import Menu from "./dashboard/menu.component";
@@ -20,7 +22,56 @@ interface IProps {
 interface IState {}
 
 const Home = (props: IProps) => {
-  const { students, isFetchingStudents } = props;
+  const { students, isFetchingStudents } = props; 
+
+  const data = [];
+  for (let i = 0; i < 10; i++) {
+    data.push({
+      key: i,
+      fullname: `John Brown`,
+      ux: 'A',
+      ui: 'A',
+      frontend: 'A',
+      backend: 'A',
+      gestionprojet: 'A',      
+    });
+}
+
+  const columns = [
+    {
+      title: 'Nom Prénom',
+      dataIndex: 'fullname',
+      key: 'fullname',
+    },
+    {
+      title: 'UX',
+      dataIndex: 'ux',
+      key: 'ux',
+    },
+    {
+      title: 'UI',
+      dataIndex: 'ui',
+      key: 'ui',
+    },
+    {
+      title: 'Front-End',
+      dataIndex: 'frontend',
+      key: 'frontend',
+    },
+    {
+      title: 'Back-End',
+      dataIndex: 'backend',
+      key: 'backend',
+    },
+    {
+      title: 'Gestion Projet',
+      dataIndex: 'gestionprojet',
+      key: 'gestionprojet',
+    },
+  ];
+
+
+  
 
   useEffect(() => {
     props.onFetchStudents();
@@ -30,7 +81,15 @@ const Home = (props: IProps) => {
     <div className="container_home">
       <Menu />
       <div className="header">
-        <h1>Promotion</h1>
+        <div className="header-container">
+          <h1>Promotion</h1>
+          <input type="text"/>
+          <input type="text"/>
+          <Button className="header-button" type="primary">+ Ajouter un élève </Button>       
+        </div>
+        <div className="student-list-container">
+        <Table className="student-list" dataSource={data} columns={columns} pagination={false}/>
+        </div>
       </div>
       <div>
         {isFetchingStudents && (
@@ -42,7 +101,7 @@ const Home = (props: IProps) => {
           {!isFetchingStudents &&
             students.map((student: Student, id) => (
               <div key={id} className="student_element">
-                <span>{student.name}</span>
+                <span>{student.firstname}</span>
                 <span>{student.ux}</span>
                 <span>{student.ui}</span>
                 <span>{student.frontend}</span>
