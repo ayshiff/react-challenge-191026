@@ -15,10 +15,13 @@ export const TeacherActions = {
   EDIT_TEACHER_SUCCESS: "[TEACHER] EDIT_TEACHER_SUCCESS",
   DELETE_TEACHER_SUCCESS: "[TEACHER] DELETE_TEACHER_SUCCESS",
   GET_TEACHER_SUCCESS: "[TEACHER] GET_TEACHER_SUCCESS",
+  GET_ALL_TEACHER: "[TEACHER] GET_ALL_TEACHER",
+  GET_ALL_TEACHER_SUCCESS: "[TEACHER] GET_ALL_TEACHER_SUCCESS",
   ADD_TEACHER_FAIL: "[TEACHER] ADD_STUDEN_FAIL",
   EDIT_TEACHER_FAIL: "[TEACHER] EDIT_TEACHER_FAIL",
   DELETE_TEACHER_FAIL: "[TEACHER] DELETE_TEACHER_FAIL",
-  GET_TEACHER_FAIL: "[TEACHER] GET_TEACHER_FAIL"
+  GET_TEACHER_FAIL: "[TEACHER] GET_TEACHER_FAIL",
+  GET_ALL_TEACHER_FAIL: "[TEACHER] GET_ALL_TEACHER_FAIL"
 };
 
 export const AAddTeacherSucess = (
@@ -49,6 +52,13 @@ export const AGetTeachersSucess = (
   payload
 });
 
+export const AGetAllTeachersSucess = (
+  payload: Teacher
+): { type: string; payload: any } => ({
+  type: TeacherActions.GET_ALL_TEACHER_SUCCESS,
+  payload
+});
+
 export const AAddTeacher = (): { type: string } => ({
   type: TeacherActions.ADD_TEACHER
 });
@@ -63,4 +73,8 @@ export const ADeleteTeacher = (): { type: string } => ({
 
 export const AGetTeachers = (): { type: string } => ({
   type: TeacherActions.GET_TEACHER
+});
+
+export const AGetAllTeachers = (): { type: string } => ({
+  type: TeacherActions.GET_ALL_TEACHER
 });

@@ -2,7 +2,8 @@ import { PromoActions, Promo } from "../actions/promo.action";
 
 const initialState: any = {
   list: [],
-  fetching: false
+  fetching: false,
+  overview: []
 };
 
 export default (state = initialState, action: any) => {
@@ -45,7 +46,13 @@ export default (state = initialState, action: any) => {
       };
     case PromoActions.GET_PROMO_SUCCESS:
       return {
-        list: state.list.concat(action.payload),
+        list: state.list,
+        fetching: false,
+        overview: action.payload
+      };
+    case PromoActions.GET_ALL_PROMO_SUCCESS:
+      return {
+        list: action.payload,
         fetching: false
       };
     case PromoActions.GET_PROMO:

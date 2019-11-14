@@ -7,6 +7,8 @@ export interface Student {
   resume: string;
   photo: string;
   link: string;
+  name: string;
+  notes: any;
 
   // FilterPayload
   field?: string;

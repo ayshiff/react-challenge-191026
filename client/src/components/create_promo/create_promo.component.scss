@@ -1,0 +1,65 @@
+.promo_container_list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 70vh;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+
+.container_wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 35px;
+}
+.promo_cursus {
+  display: flex;
+  margin-top: 20px;
+}
+
+.container_title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 43px;
+  color: #0a1240;
+}
+
+.submit-button {
+  background-color: #6ce9b3;
+  border-color: #6ce9b3;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #6ce9b3;
+  }
+}
+
+.year {
+  margin-top: 20px;
+}
+
+.promo_card {
+  width: 300px;
+  height: 300px;
+  background: #f1f3fd;
+  border: 1px solid #f1f3fd;
+  box-sizing: border-box;
+  border-radius: 15px;
+  margin: 30px 30px 0px 0px;
+  display: flex;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.promo_plus {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.promo_title {
+  margin-top: 20px;
+}

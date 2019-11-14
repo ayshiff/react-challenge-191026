@@ -65,6 +65,11 @@ export default (state = initialState, action: Payload) => {
         list: state.list.concat(action.payload),
         fetching: false
       };
+    case StudentActions.GET_ALL_STUDENT_SUCCESS:
+      return {
+        list: action.payload,
+        fetching: false
+      };
     case StudentActions.GET_STUDENT:
       return {
         ...state,

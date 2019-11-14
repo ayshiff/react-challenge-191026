@@ -1,5 +1,5 @@
 .menu {
-  width: 90px;
+  width: 190px;
   height: 100vh;
   background: #0a1240;
   display: flex;
@@ -26,4 +26,40 @@
 }
 .container_home {
   display: flex;
+}
+
+.menu_logo_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu_logo_container p {
+  margin-top: 20px;
+  margin-left: 20px;
+  color: white;
+}
+
+.menu_list_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+}
+
+.menu_list_container p {
+  margin-left: 20px;
+  color: white;
+}
+
+.menu_add_container {
+  width: 131px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu_add_container p {
+  margin-top: 40px;
+  margin-left: 20px;
+  color: white;
 }
