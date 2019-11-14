@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"users"}},
+ *     normalizationContext={"groups"={"users", "usersGet"}},
  *     denormalizationContext={"groups"={"users"}},
  *     collectionOperations={
  *         "get",
@@ -45,7 +45,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="json")
-     * @Groups("users")
+     * @Groups("usersGet")
      */
     private $roles = [];
 
@@ -71,7 +71,7 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 

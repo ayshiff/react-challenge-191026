@@ -12,11 +12,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"subjects"}},
  *     collectionOperations={
  *         "get",
- *         "post"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER')"}
+ *         "post"={"security"="is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
  *         "get",
- *         "put"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER')"}
+ *         "put"={"security"="is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\SubjectRepository")
