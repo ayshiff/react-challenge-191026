@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Student;
+use App\Entity\Teacher;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
@@ -62,6 +63,32 @@ class FixtureCommand extends Command
 
     protected function createUsers()
     {
+        // admin
+        $user = new User();
+        $user->setMail('admin@hetic.net');
+        $user->setPassword($this->passwordEncoder->encodePassword(
+            $user,
+            'admin'
+        ));
+        $this->entityManager->persist($user);
+
+
+        // teacher
+        $user = new User();
+        $user->setMail('eric.priou@hetic.net');
+        $user->setPassword($this->passwordEncoder->encodePassword(
+            $user,
+            'teacher'
+        ));
+        $this->entityManager->persist($user);
+
+        $teacher = new Teacher();
+        $teacher->setFirstname('Eric');
+        $teacher->setLastname('Priou');
+        $teacher->setUser($user);
+        $this->entityManager->persist($teacher);
+
+        // students
         for ($i = 1; $i <= 10; $i++) {
             $firstname = $this->faker->firstName;
             $lastname = $this->faker->lastName;
@@ -69,7 +96,7 @@ class FixtureCommand extends Command
             $user->setMail($firstname.'.'.$lastname.'@hetic.net');
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
-                'FIXTURE'
+                'fixture'
             ));
             $this->entityManager->persist($user);
 
