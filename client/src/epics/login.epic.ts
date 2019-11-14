@@ -15,14 +15,14 @@ const loginUserEpic = (action$: any) => {
         url: `${API_URL}/authentification_token`,
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          accept: "application/json"
         },
         body: {
           mail: action.payload.mail,
           password: action.payload.password
         }
       }).pipe(
-        map((response: any) => ALoginUserSuccess(response.token)),
+        map((data: any) => ALoginUserSuccess(data.response.token)),
         catchError(error =>
           of({
             type: LoginActions.LOGIN_FAIL,
