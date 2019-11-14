@@ -71,11 +71,14 @@ const Home = (props: IProps) => {
   ];
 
 
-  
-
   useEffect(() => {
     props.onFetchStudents();
   }, []);
+
+  useState(() => {
+    visible: false
+  });
+  
 
   return (
     <div className="container_home">
@@ -88,7 +91,7 @@ const Home = (props: IProps) => {
           <Button className="header-button" type="primary">+ Ajouter un élève </Button>       
         </div>
         <div className="student-list-container">
-        <Table className="student-list" dataSource={data} columns={columns} pagination={false} scroll={{ y: 240 }}/>
+        <Table className="student-list" dataSource={data} columns={columns} pagination={false} scroll={{ y: 840 }}/>
         </div>
       </div>
       <div>
@@ -101,12 +104,7 @@ const Home = (props: IProps) => {
           {!isFetchingStudents &&
             students.map((student: Student, id) => (
               <div key={id} className="student_element">
-                <span>{student.firstname}</span>
-                <span>{student.ux}</span>
-                <span>{student.ui}</span>
-                <span>{student.frontend}</span>
-                <span>{student.backend}</span>
-                <span>{student.projectManagement}</span>
+
               </div>
             ))}
         </div>
