@@ -3,14 +3,15 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"students", "users"}},
- *     denormalizationContext={"groups"={"students", "users"}},
+ *     normalizationContext={"groups"={"students", "users", "subjects"}},
+ *     denormalizationContext={"groups"={"students", "users", "subjects", "studentsPost"}},
  *     collectionOperations={
  *         "get",
  *         "post"={"security"="is_granted('ROLE_ADMIN')"}
@@ -28,24 +29,24 @@ class Student
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("students")
+     * @Groups({"students", "promos"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups("students")
+     * @Groups({"students", "promos"})
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Groups("students")
+     * @Groups({"students", "promos"})
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      * @Groups("students")
      */
     private $birthdate;
@@ -71,9 +72,26 @@ class Student
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("students")
+     * @Groups({"students", "promos"})
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="student", orphanRemoval=true, cascade={"persist"})
+     * @Groups({"students", "promos"})
+     */
+    private $notes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Promo", inversedBy="students")
+     * @Groups("studentsPost")
+     */
+    private $promo;
+
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -160,6 +178,49 @@ class Student
     public function setUser(user $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $subject): self
+    {
+        if (!$this->notes->contains($subject)) {
+            $this->notes[] = $subject;
+            $subject->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $subject): self
+    {
+        if ($this->notes->contains($subject)) {
+            $this->notes->removeElement($subject);
+            // set the owning side to null (unless already changed)
+            if ($subject->getStudent() === $this) {
+                $subject->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPromo(): ?Promo
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(?Promo $promo): self
+    {
+        $this->promo = $promo;
 
         return $this;
     }

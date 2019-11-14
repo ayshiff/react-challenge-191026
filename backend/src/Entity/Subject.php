@@ -12,11 +12,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"subjects"}},
  *     collectionOperations={
  *         "get",
- *         "post"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER')"}
+ *         "post"={"security"="is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
  *         "get",
- *         "put"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER')"}
+ *         "put"={"security"="is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\SubjectRepository")
@@ -37,6 +37,12 @@ class Subject
      */
     private $subject;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Promo", inversedBy="subjects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $promo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,6 +56,18 @@ class Subject
     public function setSubject(string $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getPromo(): ?Promo
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(?Promo $promo): self
+    {
+        $this->promo = $promo;
 
         return $this;
     }

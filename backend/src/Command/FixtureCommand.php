@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Entity\Student;
+use App\Entity\Cursus;
 use App\Entity\Teacher;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,7 +10,6 @@ use Faker\Factory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class FixtureCommand extends Command
 {
@@ -19,14 +18,11 @@ class FixtureCommand extends Command
 
     protected $entityManager;
 
-    protected $passwordEncoder;
-
     protected $faker;
 
-    public function __construct(EntityManagerInterface $manager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->entityManager = $manager;
-        $this->passwordEncoder = $passwordEncoder;
         $this->faker = Factory::create();
         parent::__construct();
     }
@@ -53,6 +49,7 @@ class FixtureCommand extends Command
         ]);
 
         $this->createUsers();
+        $this->createCursus();
 
         $output->writeln([
             '',
@@ -66,20 +63,16 @@ class FixtureCommand extends Command
         // admin
         $user = new User();
         $user->setMail('admin@hetic.net');
-        $user->setPassword($this->passwordEncoder->encodePassword(
-            $user,
-            'admin'
-        ));
+        $user->setPassword('admin');
+        $user->setRoles(['ROLE_ADMIN']);
         $this->entityManager->persist($user);
 
 
         // teacher
         $user = new User();
         $user->setMail('eric.priou@hetic.net');
-        $user->setPassword($this->passwordEncoder->encodePassword(
-            $user,
-            'teacher'
-        ));
+        $user->setPassword('teacher');
+        $user->setRoles(['ROLE_TEACHER']);
         $this->entityManager->persist($user);
 
         $teacher = new Teacher();
@@ -89,23 +82,35 @@ class FixtureCommand extends Command
         $this->entityManager->persist($teacher);
 
         // students
-        for ($i = 1; $i <= 10; $i++) {
-            $firstname = $this->faker->firstName;
-            $lastname = $this->faker->lastName;
-            $user = new User();
-            $user->setMail($firstname.'.'.$lastname.'@hetic.net');
-            $user->setPassword($this->passwordEncoder->encodePassword(
-                $user,
-                'fixture'
-            ));
-            $this->entityManager->persist($user);
+//        for ($i = 1; $i <= 10; $i++) {
+//            $firstname = $this->faker->firstName;
+//            $lastname = $this->faker->lastName;
+//            $user = new User();
+//            $user->setMail($firstname.'.'.$lastname.'@hetic.net');
+//            $user->setPassword($this->passwordEncoder->encodePassword(
+//                $user,
+//                'fixture'
+//            ));
+//            $user->setRoles(['ROLE_STUDENT']);
+//            $this->entityManager->persist($user);
+//
+//            $student = new Student();
+//            $student->setFirstname($firstname);
+//            $student->setLastname($lastname);
+//            $student->setBirthdate($this->faker->dateTime(new \DateTime('2000-01-01')));
+//            $student->setUser($user);
+//            $this->entityManager->persist($student);
+//        }
+        $this->entityManager->flush();
+    }
 
-            $student = new Student();
-            $student->setFirstname($firstname);
-            $student->setLastname($lastname);
-            $student->setBirthdate($this->faker->dateTime(new \DateTime('2000-01-01')));
-            $student->setUser($user);
-            $this->entityManager->persist($student);
+    public function createCursus()
+    {
+        $data = ['WEB', '3D', 'Marketing'];
+        foreach ($data as $item) {
+            $cursus = new Cursus();
+            $cursus->setCursus($item);
+            $this->entityManager->persist($cursus);
         }
         $this->entityManager->flush();
     }

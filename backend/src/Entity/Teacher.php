@@ -46,21 +46,20 @@ class Teacher
     private $lastname;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\user", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups("teachers")
      */
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\promo")
-     * @Groups("teachers")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Promo", inversedBy="teachers")
      */
-    private $promo;
+    private $promos;
 
     public function __construct()
     {
-        $this->promo = new ArrayCollection();
+        $this->promos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,17 +104,17 @@ class Teacher
     }
 
     /**
-     * @return Collection|promo[]
+     * @return Collection|Promo[]
      */
-    public function getPromo(): Collection
+    public function getPromos(): Collection
     {
-        return $this->promo;
+        return $this->promos;
     }
 
     public function addPromo(promo $promo): self
     {
-        if (!$this->promo->contains($promo)) {
-            $this->promo[] = $promo;
+        if (!$this->promos->contains($promo)) {
+            $this->promos[] = $promo;
         }
 
         return $this;
@@ -123,8 +122,8 @@ class Teacher
 
     public function removePromo(promo $promo): self
     {
-        if ($this->promo->contains($promo)) {
-            $this->promo->removeElement($promo);
+        if ($this->promos->contains($promo)) {
+            $this->promos->removeElement($promo);
         }
 
         return $this;

@@ -27,34 +27,34 @@ class Note
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("notes")
+     * @Groups({"notes", "students", "promos"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @Groups("notes")
+     * @ORM\Column(type="string", length=1)
+     * @Groups({"notes", "students", "promos"})
      */
     private $note;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\student")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Student", inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("notes")
      */
     private $student;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\teacher")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Teacher")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("notes")
+     * @Groups({"notes", "students"})
      */
     private $teacher;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\subject")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Subject")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("notes")
+     * @Groups({"notes", "students", "promos"})
      */
     private $subject;
 
@@ -63,12 +63,12 @@ class Note
         return $this->id;
     }
 
-    public function getNote(): ?int
+    public function getNote(): ?string
     {
         return $this->note;
     }
 
-    public function setNote(int $note): self
+    public function setNote(string $note): self
     {
         $this->note = $note;
 
