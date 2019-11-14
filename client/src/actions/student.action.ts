@@ -7,6 +7,12 @@ export interface Student {
   resume: string;
   photo: string;
   link: string;
+  name: string;
+  ux: string;
+  ui: string;
+  frontend: string;
+  backend: string;
+  projectManagement: string;
 
   // FilterPayload
   field?: string;
