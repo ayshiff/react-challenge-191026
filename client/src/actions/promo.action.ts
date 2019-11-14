@@ -1,8 +1,12 @@
+export interface Cursus {
+  cursus: string;
+}
+
 export interface Promo {
   id: number;
   name: string;
   year: number;
-  cursusId: number;
+  cursus: Cursus;
 }
 
 export const PromoActions = {
