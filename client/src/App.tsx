@@ -1,9 +1,10 @@
 import React from "react";
-import Dashboard from "./components/dashboard.component";
-import Overview from "./components/overview.component";
-import CreatePromo from "./components/create_promo.component";
-import Login from "./components/login.component";
+import Dashboard from "./components/dashboard/dashboard.component";
+import Overview from "./components/overview/overview.component";
+import CreatePromo from "./components/create_promo/create_promo.component";
+import Login from "./components/login/login.component";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./App.scss";
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route
-            path="/dashboard"
+            path="/dashboard/:id"
             render={(props: any) => <Dashboard {...props} />}
           />
           <Route path="/login" render={(props: any) => <Login {...props} />} />

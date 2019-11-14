@@ -8,11 +8,7 @@ export interface Student {
   photo: string;
   link: string;
   name: string;
-  ux: string;
-  ui: string;
-  frontend: string;
-  backend: string;
-  projectManagement: string;
+  notes: any;
 
   // FilterPayload
   field?: string;
