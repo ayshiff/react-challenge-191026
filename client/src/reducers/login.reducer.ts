@@ -14,8 +14,8 @@ export default (state = initialState, action: any) => {
       };
     case LoginActions.LOGIN_FAIL:
       return {
-        auth: true,
-        message: action.payload.message
+        auth: false,
+        message: ""
       };
     default:
       return state;
