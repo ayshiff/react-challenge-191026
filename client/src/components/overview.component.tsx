@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AGetAllPromos, Promo, PromoActions } from "../actions/promo.action";
 import { connect } from "react-redux";
 import "./overview.component.scss";
+import promo_plus from "../assets/promo_plus.svg";
 
 // Components
 import Menu from "./dashboard/menu.component";
@@ -9,6 +10,9 @@ import Menu from "./dashboard/menu.component";
 interface IProps {
   GetAllPromos: any;
   promos: Promo[];
+  history: {
+    push: any;
+  };
 }
 
 interface IState {}
@@ -17,16 +21,28 @@ const Overview = (props: IProps) => {
   useEffect(() => {
     props.GetAllPromos();
   }, []);
-  const { promos } = props;
+  const {
+    promos,
+    history: { push }
+  } = props;
   return (
     <div className="container_home">
       <Menu />
-      <div>
-        <h1>Overview</h1>
+      <div className="container_wrapper">
+        <h1 className="container_title">Overview</h1>
         <div className="promo_container">
+          <div className="promo_card" onClick={() => push("/create_promo")}>
+            <div className="promo_plus">
+              <img src={promo_plus} />
+              <span className="promo_title">Créer une promotion</span>
+            </div>
+          </div>
           {promos.map((promo: Promo) => (
             <div className="promo_card">
-              <h1>{promo.name}</h1>
+              <div className="promo_plus">
+                <h2 className="promo_title">{promo.name}</h2>
+                <span className="promo_title">{promo.year}</span>
+              </div>
             </div>
           ))}
         </div>
