@@ -6,6 +6,7 @@ export interface Promo {
   id: number;
   name: string;
   year: number;
+  students: any[];
   cursus: Cursus;
 }
 
@@ -77,8 +78,9 @@ export const ADeletePromo = (): { type: string } => ({
   type: PromoActions.DELETE_PROMO
 });
 
-export const AGetPromos = (): { type: string } => ({
-  type: PromoActions.GET_PROMO
+export const AGetPromos = (payload: any): { type: string; payload: any } => ({
+  type: PromoActions.GET_PROMO,
+  payload
 });
 
 export const AGetAllPromos = (): { type: string } => ({

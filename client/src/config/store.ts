@@ -16,7 +16,7 @@ const middlewares = [epicMiddleware];
 interface IinitialState {
   student: { list: Student[]; fetching: boolean };
   teacher: { list: Teacher[]; fetching: boolean };
-  promo: { list: Promo[]; fetching: boolean };
+  promo: { list: Promo[]; fetching: boolean; overview: [] };
   note: { list: Note[]; fetching: boolean };
   auth: boolean;
 }
@@ -24,7 +24,7 @@ interface IinitialState {
 const initialState: IinitialState = {
   student: { list: [], fetching: false },
   teacher: { list: [], fetching: false },
-  promo: { list: [], fetching: false },
+  promo: { list: [], fetching: false, overview: [] },
   note: { list: [], fetching: false },
   auth: false
 };
