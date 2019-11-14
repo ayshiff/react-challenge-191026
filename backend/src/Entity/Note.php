@@ -38,21 +38,21 @@ class Note
     private $note;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\student")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Student")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("notes")
      */
     private $student;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\teacher")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Teacher")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("notes")
      */
     private $teacher;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\subject")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Subject")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("notes")
      */

@@ -37,6 +37,12 @@ class Subject
      */
     private $subject;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Promo", inversedBy="subjects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $promo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,6 +56,18 @@ class Subject
     public function setSubject(string $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getPromo(): ?Promo
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(?Promo $promo): self
+    {
+        $this->promo = $promo;
 
         return $this;
     }
