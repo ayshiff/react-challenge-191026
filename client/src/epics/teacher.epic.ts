@@ -7,7 +7,8 @@ import {
   AAddTeacherSucess,
   ADeleteTeacherSucess,
   AGetTeachersSucess,
-  AEditTeacherSucess
+  AEditTeacherSucess,
+  AGetAllTeachersSucess
 } from "../actions/teacher.action";
 import { ofType } from "redux-observable";
 
@@ -29,6 +30,30 @@ const fetchTeachersEpic = (action$: any) =>
         catchError(error =>
           of({
             type: TeacherActions.GET_TEACHER_FAIL,
+            payload: error.xhr.response,
+            error: true
+          })
+        )
+      )
+    )
+  );
+
+const fetchAppTeachersEpic = (action$: any) =>
+  action$.pipe(
+    ofType(TeacherActions.GET_ALL_TEACHER),
+    mergeMap((action: any) =>
+      ajax({
+        url: `${API_URL}`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: action.payload
+      }).pipe(
+        map(response => AGetAllTeachersSucess(action.payload)),
+        catchError(error =>
+          of({
+            type: TeacherActions.GET_ALL_TEACHER_FAIL,
             payload: error.xhr.response,
             error: true
           })
@@ -115,5 +140,6 @@ export default [
   fetchTeachersEpic,
   addTeacherEpic,
   deleteTeacherEpic,
-  editStudentEpic
+  editStudentEpic,
+  fetchAppTeachersEpic
 ];
