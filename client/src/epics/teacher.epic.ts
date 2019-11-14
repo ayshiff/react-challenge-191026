@@ -22,7 +22,8 @@ const fetchTeachersEpic = (action$: any) =>
         url: `${API_URL}/${action.payload.id}`,
         method: "GET",
         headers: {
-          accept: "application/json"
+          accept: "application/json",
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -46,7 +47,8 @@ const fetchAppTeachersEpic = (action$: any) =>
         url: `${API_URL}`,
         method: "GET",
         headers: {
-          accept: "application/json"
+          accept: "application/json",
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -71,7 +73,8 @@ const addTeacherEpic = (action$: any) =>
         method: "POST",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -96,7 +99,8 @@ const deleteTeacherEpic = (action$: any) =>
         method: "DELETE",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -121,7 +125,8 @@ const editStudentEpic = (action$: any) =>
         method: "PUT",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(

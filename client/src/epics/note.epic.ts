@@ -22,7 +22,8 @@ const fetchNotesEpic = (action$: any) => {
         url: `${API_URL}/${action.payload.id}`,
         method: "GET",
         headers: {
-          accept: "application/json"
+          accept: "application/json",
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -47,7 +48,8 @@ const fetchAllNotesEpic = (action$: any) => {
         url: `${API_URL}`,
         method: "GET",
         headers: {
-          accept: "application/json"
+          accept: "application/json",
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -73,7 +75,8 @@ const addNoteEpic = (action$: any) =>
         method: "POST",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -98,7 +101,8 @@ const deleteNoteEpic = (action$: any) =>
         method: "GET",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -123,7 +127,8 @@ const editNoteEpic = (action$: any) =>
         method: "PUT",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
