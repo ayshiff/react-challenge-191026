@@ -22,11 +22,11 @@ const fetchTeachersEpic = (action$: any) =>
         url: `${API_URL}/${action.payload.id}`,
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          accept: "application/json"
         },
         body: action.payload
       }).pipe(
-        map(response => AGetTeachersSucess(action.payload)),
+        map(data => AGetTeachersSucess(data.response)),
         catchError(error =>
           of({
             type: TeacherActions.GET_TEACHER_FAIL,
@@ -46,11 +46,11 @@ const fetchAppTeachersEpic = (action$: any) =>
         url: `${API_URL}`,
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          accept: "application/json"
         },
         body: action.payload
       }).pipe(
-        map(response => AGetAllTeachersSucess(action.payload)),
+        map(data => AGetAllTeachersSucess(data.response)),
         catchError(error =>
           of({
             type: TeacherActions.GET_ALL_TEACHER_FAIL,
@@ -70,12 +70,12 @@ const addTeacherEpic = (action$: any) =>
         url: `${API_URL}`,
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => AAddTeacherSucess(action.payload)),
+        map(data => AAddTeacherSucess(data.response)),
         catchError(error =>
           of({
             type: TeacherActions.ADD_TEACHER_FAIL,
@@ -95,12 +95,12 @@ const deleteTeacherEpic = (action$: any) =>
         url: `${API_URL}/${action.payload.id}`,
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => ADeleteTeacherSucess(action.payload)),
+        map(data => ADeleteTeacherSucess(data.response)),
         catchError(error =>
           of({
             type: TeacherActions.DELETE_TEACHER_FAIL,
@@ -120,12 +120,12 @@ const editStudentEpic = (action$: any) =>
         url: `${API_URL}/${action.payload.id}`,
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => AEditTeacherSucess(action.payload)),
+        map(data => AEditTeacherSucess(data.response)),
         catchError(error =>
           of({
             type: TeacherActions.EDIT_TEACHER_FAIL,

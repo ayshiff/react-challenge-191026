@@ -22,11 +22,11 @@ const fetchPromosEpic = (action$: any) => {
         url: `${API_URL}/${action.payload.id}`,
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          accept: "application/json"
         },
         body: action.payload
       }).pipe(
-        map(response => AGetPromosSuccess(action.payload)),
+        map(data => AGetPromosSuccess(data.response)),
         catchError(error =>
           of({
             type: PromoActions.GET_PROMO_FAIL,
@@ -47,11 +47,11 @@ const fetchAllPromosEpic = (action$: any) => {
         url: `${API_URL}`,
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          accept: "application/json"
         },
         body: action.payload
       }).pipe(
-        map(response => AGetAllPromosSuccess(action.payload)),
+        map(data => AGetAllPromosSuccess(data.response)),
         catchError(error =>
           of({
             type: PromoActions.GET_ALL_PROMO_FAIL,
@@ -72,12 +72,12 @@ const addPromoEpic = (action$: any) =>
         url: `${API_URL}`,
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => AAddPromoSuccess(action.payload)),
+        map(data => AAddPromoSuccess(data.response)),
         catchError(error =>
           of({
             type: PromoActions.ADD_PROMO_FAIL,
@@ -97,12 +97,12 @@ const deletePromoEpic = (action$: any) =>
         url: `${API_URL}/${action.payload.id}`,
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => ADeletePromoSuccess(action.payload)),
+        map(data => ADeletePromoSuccess(data.response)),
         catchError(error =>
           of({
             type: PromoActions.DELETE_PROMO_FAIL,
@@ -122,12 +122,12 @@ const editPromoEpic = (action$: any) =>
         url: `${API_URL}/${action.payload.id}`,
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => AEditPromoSuccess(action.payload)),
+        map(data => AEditPromoSuccess(data.response)),
         catchError(error =>
           of({
             type: PromoActions.EDIT_PROMO_FAIL,

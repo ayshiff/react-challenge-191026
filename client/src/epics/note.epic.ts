@@ -22,11 +22,11 @@ const fetchNotesEpic = (action$: any) => {
         url: `${API_URL}/${action.payload.id}`,
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          accept: "application/json"
         },
         body: action.payload
       }).pipe(
-        map(response => AGetNotesSuccess(action.payload)),
+        map(data => AGetNotesSuccess(data.response)),
         catchError(error =>
           of({
             type: NoteActions.GET_NOTE_FAIL,
@@ -47,11 +47,11 @@ const fetchAllNotesEpic = (action$: any) => {
         url: `${API_URL}`,
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
+          accept: "application/json"
         },
         body: action.payload
       }).pipe(
-        map(response => AGetAllNotesSuccess(action.payload)),
+        map(data => AGetAllNotesSuccess(data.response)),
         catchError(error =>
           of({
             type: NoteActions.GET_ALL_NOTE_FAIL,
@@ -72,12 +72,12 @@ const addNoteEpic = (action$: any) =>
         url: `${API_URL}`,
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => AAddNoteSuccess(action.payload)),
+        map(data => AAddNoteSuccess(data.response)),
         catchError(error =>
           of({
             type: NoteActions.DELETE_NOTE_FAIL,
@@ -97,12 +97,12 @@ const deleteNoteEpic = (action$: any) =>
         url: `${API_URL}/${action.payload.id}`,
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => ADeleteNoteSuccess(action.payload)),
+        map(data => ADeleteNoteSuccess(data.response)),
         catchError(error =>
           of({
             type: NoteActions.DELETE_NOTE_FAIL,
@@ -122,12 +122,12 @@ const editNoteEpic = (action$: any) =>
         url: `${API_URL}/${action.payload.id}`,
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          accept: "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
       }).pipe(
-        map(response => AEditNoteSuccess(action.payload)),
+        map(data => AEditNoteSuccess(data.response)),
         catchError(error =>
           of({
             type: NoteActions.EDIT_NOTE_FAIL,
