@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Entity\Cursus;
 use App\Entity\Student;
 use App\Entity\Teacher;
 use App\Entity\User;
@@ -53,6 +54,7 @@ class FixtureCommand extends Command
         ]);
 
         $this->createUsers();
+        $this->createCursus();
 
         $output->writeln([
             '',
@@ -70,6 +72,7 @@ class FixtureCommand extends Command
             $user,
             'admin'
         ));
+        $user->setRoles(['ROLE_ADMIN']);
         $this->entityManager->persist($user);
 
 
@@ -80,6 +83,7 @@ class FixtureCommand extends Command
             $user,
             'teacher'
         ));
+        $user->setRoles(['ROLE_TEACHER']);
         $this->entityManager->persist($user);
 
         $teacher = new Teacher();
@@ -98,6 +102,7 @@ class FixtureCommand extends Command
                 $user,
                 'fixture'
             ));
+            $user->setRoles(['ROLE_STUDENT']);
             $this->entityManager->persist($user);
 
             $student = new Student();
@@ -106,6 +111,17 @@ class FixtureCommand extends Command
             $student->setBirthdate($this->faker->dateTime(new \DateTime('2000-01-01')));
             $student->setUser($user);
             $this->entityManager->persist($student);
+        }
+        $this->entityManager->flush();
+    }
+
+    public function createCursus()
+    {
+        $data = ['WEB', '3D', 'Marketing'];
+        foreach ($data as $item) {
+            $cursus = new Cursus();
+            $cursus->setCursus($item);
+            $this->entityManager->persist($cursus);
         }
         $this->entityManager->flush();
     }
