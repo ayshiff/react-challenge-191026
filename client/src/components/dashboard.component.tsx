@@ -74,6 +74,10 @@ const Home = (props: IProps) => {
     props.onFetchStudents();
   }, []);
 
+  useState(() => {
+    visible: false;
+  });
+
   return (
     <div className="container_home">
       <Menu />
@@ -92,7 +96,7 @@ const Home = (props: IProps) => {
             dataSource={data}
             columns={columns}
             pagination={false}
-            scroll={{ y: 240 }}
+            scroll={{ y: 840 }}
           />
         </div>
       </div>
