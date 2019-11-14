@@ -50,7 +50,7 @@ export default (state = initialState, action: any) => {
       };
     case PromoActions.GET_ALL_PROMO_SUCCESS:
       return {
-        list: state.list.concat(action.payload),
+        list: action.payload,
         fetching: false
       };
     case PromoActions.GET_PROMO:
