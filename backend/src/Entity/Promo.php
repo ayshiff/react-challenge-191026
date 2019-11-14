@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"teachers", "users", "promos", "cursus", "subjects"}},
  *     denormalizationContext={"groups"={"teachers", "users", "promos", "cursus", "subjects"}},
  *     collectionOperations={
- *         "get",
+ *         "get"={"normalization_context"={"groups"={"promosGetAll", "cursus"}}},
  *         "post"={"security"="is_granted('ROLE_ADMIN')"}
  *     },
  *     itemOperations={
@@ -29,20 +29,20 @@ class Promo
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("promos")
+     * @Groups({"promos", "promosGetAll"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups("promos")
+     * @Groups({"promos", "promosGetAll"})
      */
     private $year;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cursus")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("promos")
+     * @Groups({"promos", "promosGetAll"})
      */
     private $cursus;
 
@@ -58,10 +58,17 @@ class Promo
      */
     private $subjects;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Student", mappedBy="promo")
+     * @Groups("promos")
+     */
+    private $students;
+
     public function __construct()
     {
         $this->teachers = new ArrayCollection();
         $this->subjects = new ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +151,37 @@ class Promo
             // set the owning side to null (unless already changed)
             if ($subject->getPromo() === $this) {
                 $subject->setPromo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Student[]
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students[] = $student;
+            $student->setPromo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        if ($this->students->contains($student)) {
+            $this->students->removeElement($student);
+            // set the owning side to null (unless already changed)
+            if ($student->getPromo() === $this) {
+                $student->setPromo(null);
             }
         }
 
