@@ -92,6 +92,7 @@ const Home = (props: IProps) => {
             dataSource={data}
             columns={columns}
             pagination={false}
+            scroll={{ y: 240 }}
           />
         </div>
       </div>
@@ -108,7 +109,7 @@ const Home = (props: IProps) => {
             ))}
         </div>
       </div>
-      <Add />
+      {/* <Add /> */}
     </div>
   );
 };
