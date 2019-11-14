@@ -101,10 +101,6 @@ const Home = (props: IProps) => {
     props.onFetchStudents(id);
   }, []);
 
-  useState(() => {
-    visible: false;
-  });
-
   return (
     <div className="container_home">
       <Menu {...props} />
