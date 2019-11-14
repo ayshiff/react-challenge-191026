@@ -12,13 +12,20 @@ import {
 } from "../actions/promo.action";
 import { ofType } from "redux-observable";
 
-const API_URL = "https://api.github.com";
+const API_URL = "http://51.158.111.46:8000/api/promos";
 
 const fetchPromosEpic = (action$: any) => {
   return action$.pipe(
     ofType(PromoActions.GET_PROMO),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/promo/${action.payload}`).pipe(
+      ajax({
+        url: `${API_URL}/${action.payload.id}`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: action.payload
+      }).pipe(
         map(response => AGetPromosSuccess(action.payload)),
         catchError(error =>
           of({
@@ -36,7 +43,14 @@ const fetchAllPromosEpic = (action$: any) => {
   return action$.pipe(
     ofType(PromoActions.GET_ALL_PROMO),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/promos/${action.payload}`).pipe(
+      ajax({
+        url: `${API_URL}`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: action.payload
+      }).pipe(
         map(response => AGetAllPromosSuccess(action.payload)),
         catchError(error =>
           of({
@@ -53,16 +67,41 @@ const fetchAllPromosEpic = (action$: any) => {
 const addPromoEpic = (action$: any) =>
   action$.pipe(
     ofType(PromoActions.ADD_PROMO),
-    map((action: any) => {
-      return AAddPromoSuccess(action.payload);
-    })
+    mergeMap((action: any) =>
+      ajax({
+        url: `${API_URL}`,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: action.payload
+      }).pipe(
+        map(response => AAddPromoSuccess(action.payload)),
+        catchError(error =>
+          of({
+            type: PromoActions.ADD_PROMO_FAIL,
+            payload: error.xhr.response,
+            error: true
+          })
+        )
+      )
+    )
   );
 
 const deletePromoEpic = (action$: any) =>
   action$.pipe(
     ofType(PromoActions.DELETE_PROMO),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/promo/${action.payload}`).pipe(
+      ajax({
+        url: `${API_URL}/${action.payload.id}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: action.payload
+      }).pipe(
         map(response => ADeletePromoSuccess(action.payload)),
         catchError(error =>
           of({
@@ -79,7 +118,15 @@ const editPromoEpic = (action$: any) =>
   action$.pipe(
     ofType(PromoActions.EDIT_PROMO),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/promo/${action.payload}`).pipe(
+      ajax({
+        url: `${API_URL}/${action.payload.id}`,
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: localStorage.getItem("token")
+        },
+        body: action.payload
+      }).pipe(
         map(response => AEditPromoSuccess(action.payload)),
         catchError(error =>
           of({
