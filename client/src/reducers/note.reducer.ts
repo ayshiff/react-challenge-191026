@@ -1,4 +1,4 @@
-import { GroupActions, Group } from "../actions/group.action";
+import { NoteActions, Note } from "../actions/note.action";
 
 const initialState: any = {
   list: [],
@@ -7,48 +7,46 @@ const initialState: any = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case GroupActions.ADD_GROUP_SUCCESS:
+    case NoteActions.ADD_NOTE_SUCCESS:
       return {
         list: state.list.concat(action.payload),
         fetching: false
       };
-    case GroupActions.DELETE_GROUP_SUCCESS:
+    case NoteActions.DELETE_NOTE_SUCCESS:
       return {
-        list: state.list.filter(
-          (group: Group) => group.id !== action.payload.id
-        ),
+        list: state.list.filter((note: Note) => note.id !== action.payload.id),
         fetching: false
       };
-    case GroupActions.EDIT_GROUP_SUCCESS:
+    case NoteActions.EDIT_NOTE_SUCCESS:
       return {
-        list: state.list.map((group: Group) => {
+        list: state.list.map((note: Note) => {
           const { id } = action.payload;
-          if (group.id === id) return action.payload;
-          return group;
+          if (note.id === id) return action.payload;
+          return note;
         }),
         fetching: false
       };
-    case GroupActions.ADD_GROUP:
+    case NoteActions.ADD_NOTE:
       return {
         ...state,
         fetching: true
       };
-    case GroupActions.DELETE_GROUP:
+    case NoteActions.DELETE_NOTE:
       return {
         ...state,
         fetching: true
       };
-    case GroupActions.EDIT_GROUP:
+    case NoteActions.EDIT_NOTE:
       return {
         ...state,
         fetching: false
       };
-    case GroupActions.GET_GROUP_SUCCESS:
+    case NoteActions.GET_NOTE_SUCCESS:
       return {
         list: state.list.concat(action.payload),
         fetching: false
       };
-    case GroupActions.GET_GROUP:
+    case NoteActions.GET_NOTE:
       return {
         ...state,
         fetching: true
