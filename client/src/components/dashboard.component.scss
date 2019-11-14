@@ -1,3 +1,47 @@
+body {
+  background-color: #F1F3FD
+}
+
+.header {
+  width: 100%;
+}
+
+.header-container {
+  margin-top: 40px;
+  margin-left: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.header-button {
+  background-color: #6CE9B3;
+  &:hover,
+  &:focus,
+  &:active{
+    background-color: #6CE9B3;
+  }
+  
+}
+
+.header-container input {
+  margin: 0 10px;
+  border-radius: 6px;
+  border: none;
+  height: 35px;
+  background-image: none;
+  background-color: #ffffff;
+  box-shadow: none;
+}
+
+.header-container a {
+  text-decoration: none;
+}
+
+.header h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
 .student_row {
   display: flex;
   flex-direction: column;
@@ -6,4 +50,29 @@
 .student_element {
   display: flex;
   flex-direction: row;
+}
+
+/* Table */
+
+.student-list-container {
+  margin-top: 86px;
+  display: flex;
+  justify-content: center;
+}
+
+.student-list {
+  width: 80%;
+}
+
+.student-list tbody {
+  background-color: #ffffff;
+}
+
+.student-list tr > td{
+  border-bottom: none;
+}
+
+.student-list thead > tr:first-child > th:last-child {
+  border-top-left-radius: 12%;
+  border-top-right-radius: 12%;
 }
