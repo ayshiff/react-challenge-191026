@@ -22,7 +22,8 @@ const fetchPromosEpic = (action$: any) => {
         url: `${API_URL}/${action.payload.id}`,
         method: "GET",
         headers: {
-          accept: "application/json"
+          accept: "application/json",
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -47,7 +48,8 @@ const fetchAllPromosEpic = (action$: any) => {
         url: `${API_URL}`,
         method: "GET",
         headers: {
-          accept: "application/json"
+          accept: "application/json",
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -73,9 +75,10 @@ const addPromoEpic = (action$: any) =>
         method: "POST",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          "Content-type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
         },
-        body: action.payload
+        body: JSON.stringify(action.payload)
       }).pipe(
         map(data => AAddPromoSuccess(data.response)),
         catchError(error =>
@@ -98,6 +101,7 @@ const deletePromoEpic = (action$: any) =>
         method: "DELETE",
         headers: {
           accept: "application/json",
+          "Content-type": "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload
@@ -123,6 +127,7 @@ const editPromoEpic = (action$: any) =>
         method: "PUT",
         headers: {
           accept: "application/json",
+          "Content-type": "application/json",
           Authorization: localStorage.getItem("token")
         },
         body: action.payload

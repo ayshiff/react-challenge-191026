@@ -12,10 +12,11 @@ const loginUserEpic = (action$: any) => {
     ofType(LoginActions.LOGIN),
     mergeMap((action: any) =>
       ajax({
-        url: `${API_URL}/authentification_token`,
+        url: `${API_URL}/authentication_token`,
         method: "POST",
         headers: {
-          accept: "application/json"
+          accept: "application/json",
+          "Content-type": "application/json"
         },
         body: {
           mail: action.payload.mail,

@@ -21,7 +21,10 @@ const fetchStudentsEpic = (action$: any) => {
       ajax({
         url: `${API_URL}/${action.payload.id}`,
         method: "GET",
-        headers: { accept: "application/json" }
+        headers: {
+          accept: "application/json",
+          "Content-type": "application/json"
+        }
       }).pipe(
         map(data => AGetStudentsSucess(data.response)),
         catchError(error =>
@@ -44,7 +47,8 @@ const fetchAllStudentsEpic = (action$: any) => {
         url: `${API_URL}`,
         method: "GET",
         headers: {
-          accept: "application/json"
+          accept: "application/json",
+          "Content-type": "application/json"
         }
       }).pipe(
         map(data => AGetAllStudentsSucess(data.response)),
@@ -69,7 +73,8 @@ const addStudentEpic = (action$: any) =>
         method: "POST",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -94,7 +99,8 @@ const deleteStudentEpic = (action$: any) =>
         method: "DELETE",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
@@ -119,7 +125,8 @@ const editStudentEpic = (action$: any) =>
         method: "PUT",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token")
+          Authorization: localStorage.getItem("token"),
+          "Content-type": "application/json"
         },
         body: action.payload
       }).pipe(
