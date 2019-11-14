@@ -1,3 +1,36 @@
-services:
+version: "3"
 
-  
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/app
+      - ./server.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - backend
+
+  php:
+    image: amauryfaveriel/php-fpm
+    volumes:
+      - ./backend:/app
+    networks:
+      - backend
+
+  database:
+    image: mysql:5.7
+    volumes:
+      - data:/var/lib/mysql
+    networks: 
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: heticchallenge
+      MYSQL_USER: hetic
+      MYSQL_PASSWORD: hetic
+
+networks: 
+  backend:
+volumes:
+  data:

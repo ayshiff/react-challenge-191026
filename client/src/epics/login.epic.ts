@@ -5,14 +5,25 @@ import { of } from "rxjs";
 import { LoginActions, ALoginUserSuccess } from "../actions/login.action";
 import { ofType } from "redux-observable";
 
-const API_URL = "https://api.github.com";
+const API_URL = "http://51.158.111.46:8000";
 
 const loginUserEpic = (action$: any) => {
   return action$.pipe(
     ofType(LoginActions.LOGIN),
     mergeMap((action: any) =>
-      ajax.getJSON(`${API_URL}/login/${action.payload}`).pipe(
-        map(response => ALoginUserSuccess(action.payload)),
+      ajax({
+        url: `${API_URL}/authentication_token`,
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-type": "application/json"
+        },
+        body: {
+          mail: action.payload.mail,
+          password: action.payload.password
+        }
+      }).pipe(
+        map((data: any) => ALoginUserSuccess(data.response.token)),
         catchError(error =>
           of({
             type: LoginActions.LOGIN_FAIL,

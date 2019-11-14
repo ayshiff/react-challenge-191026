@@ -4,14 +4,28 @@ import { createEpicMiddleware } from "redux-observable";
 import rootReducer from "../reducers/index";
 import rootEpic from "../epics/index";
 
+import { Student } from "../actions/student.action";
+import { Teacher } from "../actions/teacher.action";
+import { Promo } from "../actions/promo.action";
+import { Note } from "../actions/note.action";
+
 const epicMiddleware = createEpicMiddleware();
 
 const middlewares = [epicMiddleware];
-const initialState = {
+
+interface IinitialState {
+  student: { list: Student[]; fetching: boolean };
+  teacher: { list: Teacher[]; fetching: boolean };
+  promo: { list: Promo[]; fetching: boolean };
+  note: { list: Note[]; fetching: boolean };
+  auth: boolean;
+}
+
+const initialState: IinitialState = {
   student: { list: [], fetching: false },
   teacher: { list: [], fetching: false },
   promo: { list: [], fetching: false },
-  group: { list: [], fetching: false },
+  note: { list: [], fetching: false },
   auth: false
 };
 

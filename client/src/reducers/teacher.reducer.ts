@@ -50,7 +50,7 @@ export default (state = initialState, action: any) => {
       };
     case TeacherActions.GET_ALL_TEACHER_SUCCESS:
       return {
-        list: state.list.concat(action.payload),
+        list: action.payload,
         fetching: false
       };
     case TeacherActions.GET_TEACHER:

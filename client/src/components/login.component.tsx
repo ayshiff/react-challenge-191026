@@ -1,45 +1,79 @@
-import React, { useEffect } from "react";
-import { AGetStudents, Student } from "../actions/student.action";
-import { Teacher } from "../actions/teacher.action";
-import Spinner from "react-bootstrap/Spinner";
+import React, { useState, useEffect } from "react";
+import { AGetStudents } from "../actions/student.action";
 import { connect } from "react-redux";
+import TextField, { Input } from "@material/react-text-field";
+import "@material/react-text-field/dist/text-field.css";
+import "./login.component.scss";
+import { ALoginUser } from "../actions/login.action";
 
 interface IProps {
   onFetchStudents: any;
-  students: Student[];
-  isFetchingStudents: boolean;
-  teachers: Teacher[];
-  isFetchingteachers: boolean;
+  onLoginUser: any;
+  auth: boolean;
+  history: any;
 }
 
-interface IState {}
-
-const Home = (props: IProps) => {
-  const { students, isFetchingStudents } = props;
+const Login = (props: IProps) => {
+  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
 
   useEffect(() => {
-    props.onFetchStudents();
-  }, []);
+    console.log(props);
+    if (props.auth) {
+      props.history.push("/promo");
+    }
+  }, [props]);
 
-  return <div></div>;
+  return (
+    <div className="loginWrap">
+      <div className="login">
+        <div className="title">
+          <h1>Intranet</h1>
+          <span></span>
+        </div>
+        <form>
+          <TextField outlined label="Adresse mail">
+            <Input
+              value={email}
+              // @ts-ignore
+              onChange={e => setEmail(e.target.value)}
+            />
+          </TextField>
+          <TextField outlined label="Mot de passe">
+            <Input
+              value={password}
+              type="password"
+              // @ts-ignore
+              onChange={e => setpassword(e.target.value)}
+            />
+          </TextField>
+          <input
+            onClick={e => {
+              e.preventDefault();
+              props.onLoginUser({ mail: email, password });
+            }}
+            className="submit"
+            type="submit"
+            name="submit"
+            value="Se connecter"
+          />
+        </form>
+      </div>
+    </div>
+  );
 };
 
 const mapStateToProps = (state: any) => {
   return {
-    students: state.student.list,
-    isFetchingStudents: state.student.fetching,
-    teachers: state.teacher.list,
-    isFetchingteachers: state.teacher.fetching
+    auth: state.login.auth
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onFetchStudents: () => dispatch(AGetStudents())
+    onFetchStudents: () => dispatch(AGetStudents()),
+    onLoginUser: (payload: any) => dispatch(ALoginUser(payload))
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
