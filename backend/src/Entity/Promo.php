@@ -18,7 +18,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     },
  *     itemOperations={
  *         "get",
- *         "put"={"security"="is_granted('ROLE_ADMIN')"}
+ *         "put"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\PromoRepository")
@@ -59,7 +60,7 @@ class Promo
     private $subjects;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Student", mappedBy="promo")
+     * @ORM\OneToMany(targetEntity="App\Entity\Student", mappedBy="promo", orphanRemoval=true, cascade={"persist"})
      * @Groups("promos")
      */
     private $students;

@@ -8,15 +8,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"notes", "students", "teachers", "users", "promos", "cursus", "subjects"}},
- *     denormalizationContext={"groups"={"notes", "students", "teachers", "users", "promos", "cursus", "subjects"}},
+ *     normalizationContext={"groups"={"notes", "teachers", "users", "promos", "cursus", "subjects"}},
+ *     denormalizationContext={"groups"={"notes", "teachers", "users", "promos", "cursus", "subjects"}},
  *     collectionOperations={
  *         "get",
  *         "post"={"security"="is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER')"}
  *     },
  *     itemOperations={
  *         "get",
- *         "put"={"security"="is_granted('ROLE_ADMIN') or object.teacher.user == user"}
+ *         "put"={"security"="is_granted('ROLE_ADMIN') or object.teacher.user == user"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN') or object.teacher.user == user"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\NoteRepository")
@@ -40,7 +41,6 @@ class Note
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Student", inversedBy="notes")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("notes")
      */
     private $student;
 

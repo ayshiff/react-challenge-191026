@@ -16,7 +16,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     },
  *     itemOperations={
  *         "get",
- *         "put"={"security"="is_granted('ROLE_ADMIN')"}
+ *         "put"={"security"="is_granted('ROLE_ADMIN')"},
+ *         "delete"={"security"="is_granted('ROLE_ADMIN')"}
  *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\SubjectRepository")
