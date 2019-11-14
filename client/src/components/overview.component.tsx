@@ -40,7 +40,7 @@ const Overview = (props: IProps) => {
           {promos.map((promo: Promo) => (
             <div className="promo_card">
               <div className="promo_plus">
-                <h2 className="promo_title">{promo.name}</h2>
+                <h2 className="promo_title">{promo.cursus.cursus}</h2>
                 <span className="promo_title">{promo.year}</span>
               </div>
             </div>

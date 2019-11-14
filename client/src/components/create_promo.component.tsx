@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { AGetAllPromos, Promo, PromoActions } from "../actions/promo.action";
+import {
+  AGetAllPromos,
+  Promo,
+  PromoActions,
+  AAddPromo
+} from "../actions/promo.action";
 import { connect } from "react-redux";
 import "./create_promo.component.scss";
 import { Checkbox, Input, Radio, Button, Icon } from "antd";
@@ -11,6 +16,8 @@ import { AGetAllTeachers, Teacher } from "../actions/teacher.action";
 interface IProps {
   GetAllPromos: any;
   GetAllTeachers: any;
+  AddPromo: any;
+  AAdd: any;
   promos: Promo[];
   teachers: Teacher[];
   history: {
@@ -24,6 +31,7 @@ const Overview = (props: IProps) => {
   const [cursus, setCursus] = useState("");
   const [competence, setCompetence] = useState([""]);
   const [year, setYear] = useState("");
+  const [teacher, setTeacher] = useState([""]);
 
   useEffect(() => {
     props.GetAllPromos();
@@ -31,14 +39,22 @@ const Overview = (props: IProps) => {
   }, []);
 
   const onSubmit = () => {
-    console.log({ cursus, competence, year });
+    const data = {
+      year: parseInt(year),
+      cursus,
+      teachers: [teacher],
+      subjects: competence.slice(1).map(el => {
+        return { subject: el };
+      })
+    };
+    props.AddPromo(data);
   };
   return (
     <div className="container_home">
       <Menu />
       <div className="container_wrapper">
         <h1 className="container_title">Créer une promotion</h1>
-        <div className="promo_container">
+        <div className="promo_container_list">
           <span>CURSUS</span>
           <div className="promo_cursus">
             <Radio.Group
@@ -85,11 +101,17 @@ const Overview = (props: IProps) => {
             <span>ANNÉE DIPLOMANTE</span>
             <Input onChange={e => setYear(e.target.value)} placeholder="2020" />
             <Radio.Group
-              onChange={e => setCursus(e.target.value)}
-              value={cursus}
+              onChange={e => setTeacher(e.target.value)}
+              value={teacher}
             >
               {props.teachers.map((teacher: Teacher) => (
-                <Radio value={`/api/teacher/${teacher.id}`}>
+                <Radio
+                  onChange={e =>
+                    setTeacher(prevArray => [...prevArray, e.target.value])
+                  }
+                  value={`/api/teachers/${teacher.id}`}
+                  key={teacher.id}
+                >
                   {teacher.firstname} {teacher.lastname}
                 </Radio>
               ))}
@@ -117,7 +139,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     GetAllPromos: () => dispatch(AGetAllPromos()),
-    GetAllTeachers: () => dispatch(AGetAllTeachers())
+    GetAllTeachers: () => dispatch(AGetAllTeachers()),
+    AddPromo: (payload: any) => dispatch(AAddPromo(payload))
   };
 };
 
