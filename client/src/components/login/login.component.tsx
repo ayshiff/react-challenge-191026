@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { AGetStudents } from "../actions/student.action";
+import { AGetStudents } from "../../actions/student.action";
 import { connect } from "react-redux";
 import TextField, { Input } from "@material/react-text-field";
 import "@material/react-text-field/dist/text-field.css";
 import "./login.component.scss";
-import { ALoginUser } from "../actions/login.action";
+import { ALoginUser } from "../../actions/login.action";
 
 interface IProps {
   onFetchStudents: any;
@@ -18,7 +18,6 @@ const Login = (props: IProps) => {
   const [password, setpassword] = useState("");
 
   useEffect(() => {
-    console.log(props);
     if (props.auth) {
       props.history.push("/promo");
     }

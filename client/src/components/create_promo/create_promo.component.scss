@@ -2,6 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  height: 70vh;
+  justify-content: space-evenly;
+  align-items: baseline;
 }
 
 .container_wrapper {
@@ -11,7 +14,7 @@
 }
 .promo_cursus {
   display: flex;
-  flex-direction: column;
+  margin-top: 20px;
 }
 
 .container_title {
@@ -20,6 +23,20 @@
   font-size: 36px;
   line-height: 43px;
   color: #0a1240;
+}
+
+.submit-button {
+  background-color: #6ce9b3;
+  border-color: #6ce9b3;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #6ce9b3;
+  }
+}
+
+.year {
+  margin-top: 20px;
 }
 
 .promo_card {

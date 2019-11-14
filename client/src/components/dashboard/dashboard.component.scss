@@ -1,6 +1,6 @@
-body {
-  background-color: #F1F3FD
-}
+// body {
+//   background-color: #F1F3FD
+// }
 
 .header {
   width: 100%;
@@ -14,13 +14,12 @@ body {
 }
 
 .header-button {
-  background-color: #6CE9B3;
+  background-color: #6ce9b3;
   &:hover,
   &:focus,
-  &:active{
-    background-color: #6CE9B3;
+  &:active {
+    background-color: #6ce9b3;
   }
-  
 }
 
 .header-container input {
@@ -68,7 +67,7 @@ body {
   background-color: #ffffff;
 }
 
-.student-list tr > td{
+.student-list tr > td {
   border-bottom: none;
 }
 

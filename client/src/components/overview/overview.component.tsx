@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AGetAllPromos, Promo, PromoActions } from "../actions/promo.action";
+import { AGetAllPromos, Promo, PromoActions } from "../../actions/promo.action";
 import { connect } from "react-redux";
 import "./overview.component.scss";
-import promo_plus from "../assets/promo_plus.svg";
+import promo_plus from "../../assets/promo_plus.svg";
 
 // Components
-import Menu from "./dashboard/menu.component";
+import Menu from "../dashboard/menu.component";
 
 interface IProps {
   GetAllPromos: any;
@@ -27,7 +27,7 @@ const Overview = (props: IProps) => {
   } = props;
   return (
     <div className="container_home">
-      <Menu />
+      <Menu {...props} />
       <div className="container_wrapper">
         <h1 className="container_title">Overview</h1>
         <div className="promo_container">
@@ -38,7 +38,10 @@ const Overview = (props: IProps) => {
             </div>
           </div>
           {promos.map((promo: Promo) => (
-            <div className="promo_card">
+            <div
+              onClick={() => props.history.push(`/dashboard/${promo.id}`)}
+              className="promo_card"
+            >
               <div className="promo_plus">
                 <h2 className="promo_title">{promo.cursus.cursus}</h2>
                 <span className="promo_title">{promo.year}</span>

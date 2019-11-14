@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { AGetAllStudents, Student } from "../actions/student.action";
-import { Teacher } from "../actions/teacher.action";
+import { AGetAllStudents, Student } from "../../actions/student.action";
+import { Teacher } from "../../actions/teacher.action";
 import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
 import { Table, Divider, Button } from "antd";
 import "./dashboard.component.scss";
-import "./reset.scss";
+import "../reset.scss";
+import { useParams } from "react-router-dom";
 
 // Components
-import Menu from "./dashboard/menu.component";
-import Add from "./add.component";
+import Menu from "./menu.component";
+import Add from "../add.component";
+import { AGetPromos, PromoActions, Promo } from "../../actions/promo.action";
 
 interface IProps {
   onFetchStudents: any;
@@ -17,12 +19,15 @@ interface IProps {
   isFetchingStudents: boolean;
   teachers: Teacher[];
   isFetchingteachers: boolean;
+  promos: Promo[];
 }
 
 interface IState {}
 
 const Home = (props: IProps) => {
   const { students, isFetchingStudents } = props;
+  const [studentToDisplay, setStudentToDisplay] = useState();
+  const { id } = useParams();
 
   const data = [];
   for (let i = 0; i < 10; i++) {
@@ -71,7 +76,29 @@ const Home = (props: IProps) => {
   ];
 
   useEffect(() => {
-    props.onFetchStudents();
+    if (props.promos && props.promos.length) {
+      const promo = props.promos.filter((el: any) => String(el.id) == id);
+      const students =
+        promo[0] &&
+        promo[0].students.map((student: Student) => {
+          const notes = student.notes.map((note: any) => {
+            return {
+              [note.subject.subject]: note.note
+            };
+          });
+          return {
+            ...notes,
+            key: student.id,
+            fullname: `${student.firstname} ${student.lastname}`
+          };
+        });
+      setStudentToDisplay(students || []);
+      console.log(promo);
+    }
+  }, [props.promos]);
+
+  useEffect(() => {
+    props.onFetchStudents(id);
   }, []);
 
   useState(() => {
@@ -80,7 +107,7 @@ const Home = (props: IProps) => {
 
   return (
     <div className="container_home">
-      <Menu />
+      <Menu {...props} />
       <div className="header">
         <div className="header-container">
           <h1>Promotion</h1>
@@ -93,27 +120,13 @@ const Home = (props: IProps) => {
         <div className="student-list-container">
           <Table
             className="student-list"
-            dataSource={data}
+            dataSource={studentToDisplay}
             columns={columns}
             pagination={false}
             scroll={{ y: 840 }}
           />
         </div>
       </div>
-      <div>
-        {isFetchingStudents && (
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
-        )}
-        <div className="student-row">
-          {!isFetchingStudents &&
-            students.map((student: Student, id) => (
-              <div key={id} className="student_element"></div>
-            ))}
-        </div>
-      </div>
-      {/* <Add /> */}
     </div>
   );
 };
@@ -122,14 +135,13 @@ const mapStateToProps = (state: any) => {
   return {
     students: state.student.list,
     isFetchingStudents: state.student.fetching,
-    teachers: state.teacher.list,
-    isFetchingteachers: state.teacher.fetching
+    promos: state.promo.overview
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onFetchStudents: () => dispatch(AGetAllStudents())
+    onFetchStudents: (id: any) => dispatch(AGetPromos({ id }))
   };
 };
 
