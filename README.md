@@ -13,6 +13,11 @@ Adresse du serveur:
 
 51.158.111.46
 
+## Design UI/UX
+
+Lien maquettes Figma :
+https://www.figma.com/file/vy1SX8Cup71nk51cloMPbm/Dashboard-Hetic?node-id=6%3A10039
+
 ## FrontEnd
 
 ReactJS - Typescript - Redux - RxJS - Redux-Observable
