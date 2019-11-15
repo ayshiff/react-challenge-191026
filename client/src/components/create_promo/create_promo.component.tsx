@@ -48,6 +48,7 @@ const Overview = (props: IProps) => {
       })
     };
     props.AddPromo(data);
+    props.history.push("/promo");
   };
   return (
     <div className="container_home">
@@ -74,7 +75,7 @@ const Overview = (props: IProps) => {
               <Checkbox
                 onChange={e =>
                   e.target.checked &&
-                  setCompetence(prevArray => [...prevArray, "UX"])
+                  setCompetence(prevArray => [...prevArray, "ux"])
                 }
               >
                 UX
@@ -82,10 +83,15 @@ const Overview = (props: IProps) => {
               <Checkbox
                 onChange={e =>
                   e.target.checked &&
-                  setCompetence(prevArray => [
-                    ...prevArray,
-                    "Développement Frontend"
-                  ])
+                  setCompetence(prevArray => [...prevArray, "ui"])
+                }
+              >
+                UI
+              </Checkbox>
+              <Checkbox
+                onChange={e =>
+                  e.target.checked &&
+                  setCompetence(prevArray => [...prevArray, "frontend"])
                 }
               >
                 Développement Frontend
@@ -93,13 +99,18 @@ const Overview = (props: IProps) => {
               <Checkbox
                 onChange={e =>
                   e.target.checked &&
-                  setCompetence(prevArray => [
-                    ...prevArray,
-                    "Développement Backend"
-                  ])
+                  setCompetence(prevArray => [...prevArray, "backend"])
                 }
               >
                 Développement Backend
+              </Checkbox>
+              <Checkbox
+                onChange={e =>
+                  e.target.checked &&
+                  setCompetence(prevArray => [...prevArray, "gestionprojet"])
+                }
+              >
+                Gestion de projet
               </Checkbox>
             </div>
           </div>

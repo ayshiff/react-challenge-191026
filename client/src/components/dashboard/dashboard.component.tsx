@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { AGetAllStudents, Student } from "../../actions/student.action";
+import {
+  AGetAllStudents,
+  Student,
+  AAddStudent
+} from "../../actions/student.action";
 import { Teacher } from "../../actions/teacher.action";
-import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
 import { Table, Divider, Button } from "antd";
 import "./dashboard.component.scss";
 import "../reset.scss";
 import { useParams } from "react-router-dom";
+import { Spin } from "antd";
 
 // Components
 import Menu from "./menu.component";
@@ -19,7 +23,8 @@ interface IProps {
   isFetchingStudents: boolean;
   teachers: Teacher[];
   isFetchingteachers: boolean;
-  promos: Promo[];
+  promos: any;
+  onAddStudent: any;
 }
 
 interface IState {}
@@ -27,20 +32,8 @@ interface IState {}
 const Home = (props: IProps) => {
   const { students, isFetchingStudents } = props;
   const [studentToDisplay, setStudentToDisplay] = useState();
+  const [isLoading, setLoading] = useState(true);
   const { id } = useParams();
-
-  const data = [];
-  for (let i = 0; i < 10; i++) {
-    data.push({
-      key: i,
-      fullname: `John Brown`,
-      ux: "A",
-      ui: "A",
-      frontend: "A",
-      backend: "A",
-      gestionprojet: "A"
-    });
-  }
 
   const columns = [
     {
@@ -76,30 +69,52 @@ const Home = (props: IProps) => {
   ];
 
   useEffect(() => {
-    if (props.promos && props.promos.length) {
-      const promo = props.promos.filter((el: any) => String(el.id) == id);
-      const students =
-        promo[0] &&
-        promo[0].students.map((student: Student) => {
+    if (props.promos && props.promos.students) {
+      const students = props.promos.students
+        .concat(props.students)
+        .map((student: Student) => {
           const notes = student.notes.map((note: any) => {
             return {
               [note.subject.subject]: note.note
             };
           });
-          return {
-            ...notes,
+          const data = {
             key: student.id,
             fullname: `${student.firstname} ${student.lastname}`
           };
+          for (const dd of notes) {
+            // @ts-ignore
+            data[Object.keys(dd)] = Object.values(dd);
+          }
+          return data;
         });
       setStudentToDisplay(students || []);
-      console.log(promo);
+      setLoading(false);
     }
-  }, [props.promos]);
+  }, [props.promos, props.students]);
 
   useEffect(() => {
     props.onFetchStudents(id);
   }, []);
+
+  const onAddStudent = () => {
+    const data = {
+      firstname: "test",
+      lastname: "test",
+      user: {
+        mail: "testfsdfsdf"
+      },
+      promo: "api/promos/1",
+      notes: [
+        {
+          note: "A",
+          teacher: "/api/teachers/1",
+          subject: "/api/subjects/1"
+        }
+      ]
+    };
+    props.onAddStudent(data);
+  };
 
   return (
     <div className="container_home">
@@ -113,16 +128,20 @@ const Home = (props: IProps) => {
             + Ajouter un élève{" "}
           </Button>
         </div>
-        <div className="student-list-container">
-          <Table
-            className="student-list"
-            dataSource={studentToDisplay}
-            columns={columns}
-            pagination={false}
-            scroll={{ y: 840 }}
-          />
-        </div>
+        {isLoading && <Spin className="spinner" />}
+        {!isLoading && (
+          <div className="student-list-container">
+            <Table
+              className="student-list"
+              dataSource={studentToDisplay}
+              columns={columns}
+              pagination={false}
+              scroll={{ y: 840 }}
+            />
+          </div>
+        )}
       </div>
+      {/* <button onClick={() => onAddStudent()}>dqsfdf</button> */}
     </div>
   );
 };
@@ -137,7 +156,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onFetchStudents: (id: any) => dispatch(AGetPromos({ id }))
+    onFetchStudents: (id: any) => dispatch(AGetPromos({ id })),
+    onAddStudent: (payload: Student) => dispatch(AAddStudent(payload))
   };
 };
 

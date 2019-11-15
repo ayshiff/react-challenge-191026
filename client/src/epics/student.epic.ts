@@ -73,7 +73,7 @@ const addStudentEpic = (action$: any) =>
         method: "POST",
         headers: {
           accept: "application/json",
-          Authorization: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-type": "application/json"
         },
         body: action.payload
@@ -81,7 +81,7 @@ const addStudentEpic = (action$: any) =>
         map(data => AAddStudentSucess(data.response)),
         catchError(error =>
           of({
-            type: StudentActions.DELETE_STUDENT_FAIL,
+            type: StudentActions.ADD_STUDENT_FAIL,
             payload: error.xhr.response,
             error: true
           })
