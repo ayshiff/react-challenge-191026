@@ -29,7 +29,7 @@ const Overview = (props: IProps) => {
     <div className="container_home">
       <Menu {...props} />
       <div className="container_wrapper">
-        <h1 className="container_title">Overview</h1>
+        <h1 className="container_title">Vue générale</h1>
         <div className="promo_container">
           <div className="promo_card" onClick={() => push("/create_promo")}>
             <div className="promo_plus">

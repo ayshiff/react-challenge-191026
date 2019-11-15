@@ -6,7 +6,7 @@ import {
 } from "../../actions/student.action";
 import { Teacher } from "../../actions/teacher.action";
 import { connect } from "react-redux";
-import { Table, Divider, Button } from "antd";
+import { Table, Divider, Button, Modal, Input, Radio } from "antd";
 import "./dashboard.component.scss";
 import "../reset.scss";
 import { useParams } from "react-router-dom";
@@ -32,7 +32,19 @@ interface IState {}
 const Home = (props: IProps) => {
   const { students, isFetchingStudents } = props;
   const [studentToDisplay, setStudentToDisplay] = useState();
+  const [visibleModal, setvisibleModal] = useState(false);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [noteUx, setNoteUX] = useState("");
+  const [noteUI, setNoteUI] = useState("");
+  const [noteFront, setNoteFront] = useState("");
+  const [noteBack, setNoteBack] = useState("");
+  const [noteProjet, setNoteProjet] = useState("");
   const [isLoading, setLoading] = useState(true);
+  const [teacher, setTeacher] = useState([""]);
+
   const { id } = useParams();
 
   const columns = [
@@ -99,21 +111,42 @@ const Home = (props: IProps) => {
 
   const onAddStudent = () => {
     const data = {
-      firstname: "test",
-      lastname: "test",
+      firstname: firstName,
+      lastname: lastName,
       user: {
-        mail: "testfsdfsdf"
+        mail: email
       },
-      promo: "api/promos/1",
+      promo: `api/promos/${id}`,
       notes: [
         {
-          note: "A",
+          note: noteUx,
           teacher: "/api/teachers/1",
-          subject: "/api/subjects/1"
+          subject: "/api/subjects/9"
+        },
+        {
+          note: noteUI,
+          teacher: "/api/teachers/1",
+          subject: "/api/subjects/7"
+        },
+        {
+          note: noteFront,
+          teacher: "/api/teachers/1",
+          subject: "/api/subjects/6"
+        },
+        {
+          note: noteProjet,
+          teacher: "/api/teachers/1",
+          subject: "/api/subjects/8"
+        },
+        {
+          note: noteBack,
+          teacher: "/api/teachers/1",
+          subject: "/api/subjects/5"
         }
       ]
     };
     props.onAddStudent(data);
+    setvisibleModal(false);
   };
 
   return (
@@ -124,9 +157,60 @@ const Home = (props: IProps) => {
           <h1>Promotion</h1>
           <input type="text" />
           <input type="text" />
-          <Button className="header-button" type="primary">
-            + Ajouter un élève{" "}
+          <Button
+            className="header-button"
+            type="primary"
+            onClick={() => setvisibleModal(true)}
+          >
+            + Ajouter un élève
           </Button>
+          <Modal
+            title="Basic Modal"
+            visible={visibleModal}
+            onOk={() => onAddStudent()}
+            onCancel={() => setvisibleModal(false)}
+          >
+            <Input
+              onChange={e => setFirstName(e.target.value)}
+              className="add-student-input"
+              placeholder="Firstname"
+            />
+            <Input
+              onChange={e => setLastName(e.target.value)}
+              className="add-student-input"
+              placeholder="Lastname"
+            />
+            <Input
+              onChange={e => setEmail(e.target.value)}
+              className="add-student-input"
+              placeholder="Email"
+            />
+            <Input
+              onChange={e => setNoteUX(e.target.value)}
+              className="add-student-input"
+              placeholder="Note en UX"
+            />
+            <Input
+              onChange={e => setNoteBack(e.target.value)}
+              className="add-student-input"
+              placeholder="Note en Back"
+            />
+            <Input
+              onChange={e => setNoteUI(e.target.value)}
+              className="add-student-input"
+              placeholder="Note en UI"
+            />
+            <Input
+              onChange={e => setNoteFront(e.target.value)}
+              className="add-student-input"
+              placeholder="Note en Front-End"
+            />
+            <Input
+              onChange={e => setNoteProjet(e.target.value)}
+              className="add-student-input"
+              placeholder="Note en Gestion de projet"
+            />
+          </Modal>
         </div>
         {isLoading && <Spin className="spinner" />}
         {!isLoading && (
