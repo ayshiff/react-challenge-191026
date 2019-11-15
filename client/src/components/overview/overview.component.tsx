@@ -23,6 +23,7 @@ interface IState {}
 const Overview = (props: IProps) => {
   useEffect(() => {
     props.GetAllPromos();
+    props.unselectStudents();
   }, []);
 
   const {
