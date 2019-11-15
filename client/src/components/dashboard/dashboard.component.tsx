@@ -148,13 +148,15 @@ const Home = (props: IProps) => {
     props.onAddStudent(data);
     setvisibleModal(false);
   };
-
   return (
     <div className="container_home">
       <Menu {...props} />
       <div className="header">
         <div className="header-container">
-          <h1>Promotion</h1>
+          <h1>
+            Promotion{" "}
+            {props.promos && props.promos.cursus && props.promos.cursus.cursus}
+          </h1>
           <input type="text" />
           <input type="text" />
           <Button
@@ -165,7 +167,7 @@ const Home = (props: IProps) => {
             + Ajouter un élève
           </Button>
           <Modal
-            title="Basic Modal"
+            title="Ajouter un élève"
             visible={visibleModal}
             onOk={() => onAddStudent()}
             onCancel={() => setvisibleModal(false)}
@@ -225,7 +227,6 @@ const Home = (props: IProps) => {
           </div>
         )}
       </div>
-      {/* <button onClick={() => onAddStudent()}>dqsfdf</button> */}
     </div>
   );
 };

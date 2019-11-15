@@ -75,6 +75,11 @@ export default (state = initialState, action: Payload) => {
         ...state,
         fetching: true
       };
+    case StudentActions.UNSELECT_STUDENT:
+      return {
+        list: [],
+        fetching: true
+      };
     default:
       return state;
   }
