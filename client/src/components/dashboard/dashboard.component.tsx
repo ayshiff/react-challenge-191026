@@ -3,7 +3,7 @@ import { AGetAllStudents, Student } from "../../actions/student.action";
 import { Teacher } from "../../actions/teacher.action";
 import Spinner from "react-bootstrap/Spinner";
 import { connect } from "react-redux";
-import { Table, Divider, Button } from "antd";
+import { Table, Divider, Button, Modal, Input } from "antd";
 import "./dashboard.component.scss";
 import "../reset.scss";
 import { useParams } from "react-router-dom";
@@ -75,6 +75,8 @@ const Home = (props: IProps) => {
     }
   ];
 
+  const [visibleModal, setvisibleModal] = useState(false);
+
   useEffect(() => {
     if (props.promos && props.promos.length) {
       const promo = props.promos.filter((el: any) => String(el.id) == id);
@@ -109,9 +111,27 @@ const Home = (props: IProps) => {
           <h1>Promotion</h1>
           <input type="text" />
           <input type="text" />
-          <Button className="header-button" type="primary">
+          {/* <Button className="header-button" type="primary">
             + Ajouter un élève{" "}
+          </Button> */}
+          <Button className="header-button" type="primary" onClick={() => setvisibleModal(true)}>
+            + Ajouter un élève
           </Button>
+          <Modal
+            title="Basic Modal"
+            visible={visibleModal}
+            onOk={() => setvisibleModal(false)}
+            onCancel={() => setvisibleModal(false)}
+          >
+            <Input className="add-student-input" placeholder="Firstname"/>
+            <Input className="add-student-input" placeholder="Lastname"/>
+            <Input className="add-student-input" placeholder="Email"/>
+            <Input className="add-student-input" placeholder="Note en UX"/>
+            <Input className="add-student-input" placeholder="Note en UI"/>
+            <Input className="add-student-input" placeholder="Note en Front-End"/>
+            <Input className="add-student-input" placeholder="Note en Ux"/>
+            <Input className="add-student-input" placeholder="Note en Gestion de projet"/>
+          </Modal>
         </div>
         <div className="student-list-container">
           <Table
