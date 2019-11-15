@@ -3,6 +3,7 @@ import { AGetAllPromos, Promo, PromoActions } from "../../actions/promo.action";
 import { connect } from "react-redux";
 import "./overview.component.scss";
 import promo_plus from "../../assets/promo_plus.svg";
+import { AUnselectStudent } from "../../actions/student.action";
 
 // Components
 import Menu from "../dashboard/menu.component";
@@ -10,6 +11,8 @@ import Menu from "../dashboard/menu.component";
 interface IProps {
   GetAllPromos: any;
   promos: Promo[];
+  unselectStudents: any;
+  students: any[];
   history: {
     push: any;
   };
@@ -21,6 +24,7 @@ const Overview = (props: IProps) => {
   useEffect(() => {
     props.GetAllPromos();
   }, []);
+
   const {
     promos,
     history: { push }
@@ -56,13 +60,15 @@ const Overview = (props: IProps) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    promos: state.promo.list
+    promos: state.promo.list,
+    students: state.student.list
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    GetAllPromos: () => dispatch(AGetAllPromos())
+    GetAllPromos: () => dispatch(AGetAllPromos()),
+    unselectStudents: () => dispatch(AUnselectStudent())
   };
 };
 

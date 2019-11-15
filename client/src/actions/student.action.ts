@@ -47,7 +47,8 @@ export const StudentActions = {
   DELETE_STUDENT_FAIL: "[STUDENT] DELETE_STUDENT_FAIL",
   GET_STUDENT_FAIL: "[STUDENT] GET_STUDENT_FAIL",
   FILTER_STUDENT: "[STUDENT] FILTER",
-  SEARCH_STUDENT: "[STUDENT] SEARCH"
+  SEARCH_STUDENT: "[STUDENT] SEARCH",
+  UNSELECT_STUDENT: "[STUDENT] UNSELECT"
 };
 
 export const AFilterStudent = (
@@ -55,6 +56,10 @@ export const AFilterStudent = (
 ): { type: string; payload: any } => ({
   type: StudentActions.FILTER_STUDENT,
   payload
+});
+
+export const AUnselectStudent = (): { type: string } => ({
+  type: StudentActions.UNSELECT_STUDENT
 });
 
 export const ASearchStudent = (

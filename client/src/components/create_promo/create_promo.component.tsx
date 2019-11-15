@@ -64,8 +64,8 @@ const Overview = (props: IProps) => {
                 value={cursus}
               >
                 <Radio value={"/api/cursuses/1"}>Développeur Web</Radio>
-                <Radio value={"/api/cursuses/2"}>Webmarketing & UX</Radio>
-                <Radio value={"/api/cursuses/3"}>3D & Jeux Vidéos</Radio>
+                <Radio value={"/api/cursuses/3"}>Webmarketing & UX</Radio>
+                <Radio value={"/api/cursuses/2"}>3D & Jeux Vidéos</Radio>
               </Radio.Group>
             </div>
           </div>
